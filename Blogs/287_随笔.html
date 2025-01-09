@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<link rel="icon" href="../Common/images/favicon.ico">
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>QQ空间备份-随笔</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.6.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/lightgallery/2.3.0/css/lightgallery.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/lightgallery/2.3.0/css/lightgallery-bundle.min.css">
+	<link rel="stylesheet" type="text/css" href="../Common/css/common.css">
+	<script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.staticfile.org/lodash.js/4.17.21/lodash.min.js"></script>
+	
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/lightgallery.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/zoom/lg-zoom.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/video/lg-video.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/thumbnail/lg-thumbnail.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/rotate/lg-rotate.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/fullscreen/lg-fullscreen.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/comment/lg-comment.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/autoplay/lg-autoplay.min.js"></script>
+	<script src="https://www.lvshuncai.com/custom/js/clicklove.min.js"></script>
+	
+	<script type="text/javascript" src="../Common/json/config.js"></script>
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" target="_blank" href="https://github.com/ShunCai/QZoneExport">QQ空间导出助手</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb bg-dark">
+						<li class="breadcrumb-item"><a href="../index.html">个人中心</a></li>
+						<li class="breadcrumb-item"><a href="index.html">日志</a></li>
+						<li class="breadcrumb-item active" aria-current="page">日志详情</li>
+					</ol>
+				</nav>
+			</div>
+		</nav>
+	</header>
+	<main role="main">
+		<div class="container py-5 mt-3" style="max-width: 920px;">
+			<div id="blog_info" class="text-center">
+				<h2 id="blog_title" class="text-warning">随笔</h2>
+				<div>
+					<span id="blog_time" class="text-muted">2008-07-13 10:47</span>
+				</div>
+			</div>
+			<article id="blog_content" class="mt-3 p-2">
+				
+                                                
+                                                窗外，天已经黑了，知了在不停地叫着，听着《闪闪红星》，心里很空，什么东西也没有，写东西也写不出来，但是很想写，不知怎么办。想起五年中教过我的老师，他们一直对我很好，现在突然要分别，未免有些失落，再加上升中学对自己的压力很大，我开始为我的未来担忧，虽然我知道这不是现在考虑的问题，可是，脑子里天天想着这些事，想不想也不行。另外，整天觉得无事可做，天气又那么热，心中老是有几分烦躁。自然灵感也上不来，写的东西也东一榔头，西一棒的，很乱。这大概就是这个暑假的内容吧。不过，我亲人却觉得这个暑假我进步很大，先是走路稳了，然后又是勤奋了，作用也早早做完了，
+                                                
+                                            
+			</article>
+			<div id="comments_html">
+				<h5 class="mt-3">评论
+					<span class="badge badge-primary badge-pill">0</span>
+					<span class="text-primary p-1 float-right fa fa-thumbs-up mr-2 cursor" title="点赞数" data-field="blogid" data-target="1215917261">0</span>
+					<span class="text-primary p-1 float-right fa fa-eye mr-2 cursor" title="访问数" data-field="blogid" data-target="1215917261">0</span>
+				</h5>
+				
+				
+				
+					
+				
+			</div>
+		</div>
+	</main>
+	<script>
+		$(function() {
+			// 日志中的图片
+			$('#blog_content .QZBLOG_IMG_LOADING').on('click', function() {
+				// 画廊相册DOM
+				const $galleryDom = $('#blog_content').get(0);
+				// 点击的图片的索引位置
+				const imgIdx = $(this).attr('data-idx');
+
+				if ($galleryDom.galleryIns) {
+					$galleryDom.galleryIns.openGallery(imgIdx * 1);
+					return;
+				}
+
+				// 实例化画廊相册
+				const galleryIns = lightGallery($galleryDom, {
+					plugins: [
+						lgZoom,
+						lgFullscreen,
+						lgThumbnail,
+						lgRotate
+					],
+					mode: 'lg-fade',
+					selector: '.lightgallery',
+					download: false,
+					thumbnail: true,
+					loop: false
+				});
+				$galleryDom.galleryIns = galleryIns;
+
+				// 打开画廊
+				galleryIns.openGallery(imgIdx * 1);
+			})
+		});
+	</script>
+</body>
+
+</html>

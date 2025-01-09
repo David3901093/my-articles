@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<link rel="icon" href="../Common/images/favicon.ico">
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>QQ空间备份-漫谈模式匹配 BF算法与KMP算法</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.6.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/lightgallery/2.3.0/css/lightgallery.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/lightgallery/2.3.0/css/lightgallery-bundle.min.css">
+	<link rel="stylesheet" type="text/css" href="../Common/css/common.css">
+	<script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.staticfile.org/lodash.js/4.17.21/lodash.min.js"></script>
+	
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/lightgallery.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/zoom/lg-zoom.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/video/lg-video.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/thumbnail/lg-thumbnail.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/rotate/lg-rotate.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/fullscreen/lg-fullscreen.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/comment/lg-comment.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/autoplay/lg-autoplay.min.js"></script>
+	<script src="https://www.lvshuncai.com/custom/js/clicklove.min.js"></script>
+	
+	<script type="text/javascript" src="../Common/json/config.js"></script>
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" target="_blank" href="https://github.com/ShunCai/QZoneExport">QQ空间导出助手</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb bg-dark">
+						<li class="breadcrumb-item"><a href="../index.html">个人中心</a></li>
+						<li class="breadcrumb-item"><a href="index.html">日志</a></li>
+						<li class="breadcrumb-item active" aria-current="page">日志详情</li>
+					</ol>
+				</nav>
+			</div>
+		</nav>
+	</header>
+	<main role="main">
+		<div class="container py-5 mt-3" style="max-width: 920px;">
+			<div id="blog_info" class="text-center">
+				<h2 id="blog_title" class="text-warning">漫谈模式匹配 BF算法与KMP算法</h2>
+				<div>
+					<span id="blog_time" class="text-muted">2017-11-15 22:01</span>
+				</div>
+			</div>
+			<article id="blog_content" class="mt-3 p-2">
+				
+                                                
+                                                <div><div>最近，无意中发现，自己已经深深中了代码的毒。这不，今天无意之间又发现两个好玩的东西。模式匹配的BF算法和kmp算法。觉得人类真是太牛也太懒了。懒到连照着书本搜查单词都得借助计算机。牛到，能把最简单的一件事说得无比复杂，让人晕头转向。<br><br>不知道大家有没有这样的经验，经常我们老师会教我们在英语书当中找一句话。这件事其实极其的简单，只要一个个按照字母去比对就可以，但麻烦就麻烦，在一旦量大了之后，人脑无法同时处理大量的文字和字符信息。尤其在中国这样一个大的国家，什么东西碰上13亿，立马就会变得无比头疼。尤其是向户口本，户籍信息之类繁琐详细的东西。如果光靠人工查询，相信不到三天你就会吐血三升。对待这样简单而又繁琐的工作，人类性格中的惰性又开始发挥它应有的作用，既然人都不想在体力上浪费过多的精力去做简单又重复的工作，那么一些懒，人们就开始动“歪脑筋”：能不能把这种量大又简单的工作交给计算机去做。有了这样在身体上懒惰，整天喜欢各样奇思妙想的人们就开始设计：有一条条指令，指挥我们的计算机,告诉他怎么做，至于执行过程，你自己慢慢玩去吧，最后把答案告诉我就行。这就是算法的由来。<br><br><br>而今天要说的，bf算法和kmp算法。其实都是字符串处理与匹配的基本算法。做的就是类似于查找文本的工作。首先来瞧瞧bf算法：bf是暴力的英文缩写，说实话就是把两段话一个一个单词去比对比如：beijimg 与eij。我现在要在前一个字符串当中查找有没有后一个字符串，作为查找索引的串，叫做主串或母串。<br>如beijimg 而查找的内容，通常叫做子串，如上面的eij 暴力算法，就是从第一个字母开始，一个一个的比，当遇到不同的字母时，立马进行退回，母串从上次查找的后一个位置开始，子串则退回到开始位置。再一个字母，一个字母的比，直到母串中查找到子串为止。也就是说，每次遇到字母不一样的情况， 都要重新开始在子串的起始位置进行扫描。这样，在最坏的情况下，回溯的次数,可以达到n减m加一次。也就是说，也就是母串的长度减去子串的长度再加上一，而每次对于子串的扫描，由于都是从头到尾，所比对的次数，自然也就等于子串的长度。从程序语句执行的次数来说<br>达到了m×（n—m+1）次。本来嘛，这种方法就是常规的方法，按道理说对付一般的情况也就够用。但偏偏有些人啊，总是有非常强烈的人道主义精神。他们怕计算机累着，毕竟时间长了，机器也要休息的。于是呢，他们就考虑，能不能在提高搜索的速度？好吧，这个想法一出现，立马就把简单的问题给复杂化了 。为啥呢，要想让机器减少比较步骤，那可是一件非常麻烦事情。因为机器不是人，从本质上来说，他们无法具有人的感知觉，可以在快速的时间内去判断整个问题的规模，作出合理的方案。只能去一条一条的根据指令执行。面对这种情况，那些聪明的天才们。例如，克鲁斯，莫瑞斯，帕罗特，这三位大哥，三位天才大哥，发明了一个让机器很舒服，却让我们这些平庸之辈很头疼的算法——kmp算法。没错，就是因为这三位大哥发明了这种神奇在算法，于是这三个哥们就商量，干脆就用我们的名字命名这种算法吧。哎，这就是发明者的特权啊，只要你有本事，你也可以让自己的名字，留在历史上，无论是哪门学科。但前提是，你要能发现别人发现不了的东西 。呵呵，像我们这种整天埋没在，金钱地位，财富游戏中的人，脑子都钝化了，能够看懂你们这些大神所写的东西就已经很不容易啦，更何谈发明它？要想发明它，下辈子吧。好啦，以上只是吐了个槽，下面我们就来看看kmp到底是复杂到了如何的地步：首先，我们先来考虑一个问题，为什么暴力犯法当中会出现指针回溯的情况，原因就是在于字符串当中有重复的字符。假设每个字母都不一样的话，那么遇到不一样的字母直接往下顺着来就行了，干嘛要回头呢？于是我们就想了个办法，假设一个字符串当中出现了首尾相同的情况，比如abaab，你正着看前两个字母，和最后两个字母都是一样。那么，对于子串来说，当比较到第四个字母即a时，因为，前面已经比较的字符串中首尾都出现过a，比较的时候，就可以直接跳过，接着比较下一个字符，具体的说，如果把每个字母都标上号的话，那么，比较第四个字符时，主串所比对的字母跳转的位置就等于已经比对过的字母减去前后缀相同字符串的字符个数，而这个前后缀相同字符串的字符个数，就是所谓的next的函数模式值，而主串中字母跳转的位置就等于比对当中相同字符的个数减去next函数值。怎么样？是不是很复杂？这里面的确有很多弯弯绕，不是一句两句能说得清楚。但真正明白了，也就是那么回事儿。问题是，这么复杂的算法，设计出来到底有什么好处呢？首先 ，最大的优点就是，在搜索母串的时候，再也不用往回倒了。一条线下去。第二，可以跨过若干字符，进行所谓的滑动。这样在，某些时候可以加快搜索的速度。让机器更轻松，相对的时间也缩短了。所以，相对于上面kmp算法，我更愿意把它叫作首尾对称滑动算法，当然纯属个人自创，反正我觉得这种叫法，从意义上来说，我比较容易理解。无非就做两件事，第一寻找首尾字符串对称的个数，第二就是滑动。那么这种算法的复杂度又是多少呢，可以说在最坏的情况下 ，它的比较次数也不会超过，两倍的母串的长度。因为最坏程度无非就是一次只移动一格，而且仅仅是子串在移动 母串并不需要移动。就达到了线性的标准。是不是很牛掰啊？我就在想，这些所谓的大神们，是不是把每天喝咖啡的精力都放在了，这种看似无聊却大大有用处的问题上。 不得不说，虽然我们学的是那么的痛苦，但的的确确这些人作出了非常棒的一件事。<br><br>下面在简要的谈谈模式匹配在生活中的应用，首先在医学上，如果我们把DNA链，编程字母或者数字编码的话完全可以查出病人有没有携带病毒，而且在影像学上，把图形数字化，利用模式匹配寻找病灶也是一个不错的办法。最通俗的应用是，在图书馆查阅资料的时候，再也不用伤神费脑的查找图书编号啦，直接一输电脑立马给出答案，甚至可以根据输入的内容查找书目中的内容。是不是很方便呢 ？<br><br>其实呢，我也是今天，刚刚用了一天的时间，初步的了解了，这两种算法，拿来现学现卖喽<br>其实我觉得 通过今天的学习，尤其是与老师一起探讨的问题再借助网络探索知识，的的确确是一个不错的办法。因为老师口述的方式，可能不太符合自己的认识，导致理解偏差。我自己一个人想的的确是，半年也想不出来的。那么这个时候网络就可以帮你大忙了，上网弄个视频搜一搜，动画立马出来。通过直观的感受，这样一个变化过程，学起来也就很容易啦，哈哈，当然老师的讲授还是必不可少的，最起码，他让你有一个先入为主的认识，有一定的基础了解，然后再在这个基础上查阅一些外出的资料，再综合自己的，理解能力消化一下，就可以真正的变为自己的东西啦。哎不说了，中毒已太深啊<br><br>下面直接上代码：<br><br># include&lt;stdlib.h&gt; <br><br># include&lt;stdio.h&gt;<br><br># include&lt;malloc.h&gt;<br><br># include&lt;math.h&gt;<br><br># include&lt;string.h&gt;<br><br>//BF搜索匹配 <br><br><br><br>int bf(char a[],char sub[],int pos)//暴力匹配<br><br>{<br><br>	int i=pos;<br><br>	int j=0;<br><br>	while(i&lt;strlen(a))<br><br>	{<br><br>		if(j==0||a[i]==sub[j])<br><br>		{<br><br>			i++;<br><br>			j++;	<br><br>		}<br><br>		<br><br>		else<br><br>		{<br><br>			i=i-j+1;<br><br>			j=0;<br><br>		}<br><br>		if(j&gt;strlen(sub)-1)<br><br>		{<br><br>			return i-j+1;<br><br>		}<br><br>	}<br><br>	return 0;<br><br>}<br><br>int main()<br><br>{<br><br>	system("color F0");<br><br>	char a[100000],sub[100000];<br><br>	printf("输入主串子串\n");<br><br>	gets(a);<br><br>	gets(sub);<br><br>	if(bf(a,sub,0))<br><br>	{<br><br>		printf("匹配成功！在第%d位置出现子串\n",bf(a,sub,0));<br><br>	}<br><br>	else<br><br>		printf("没有找到！\n");<br><br>	system("pause");<br><br>	return 0;<br><br>}<br><br><br><br><br><br><br><br><br><br><br><br><br><br># include&lt;stdio.h&gt;<br><br># include&lt;malloc.h&gt;<br><br># include&lt;math.h&gt;<br><br># include&lt;stdlib.h&gt;<br><br># define N 100000 <br><br># include&lt;string.h&gt;<br><br>//kmp算法模式匹配<br><br> int next[N]={0};<br><br> char main1[N];//主串<br><br> char sub[N];//子串<br><br> void getnext(char *p,int next[])<br><br> {<br><br> 	int len=strlen(p);<br><br> 	next[0]=0;<br><br> 	int k=0;<br><br> 	int j=1;<br><br> 	while(j&lt;len-1)<br><br> 	{<br><br> 		//p[j]表示前缀，p[k]表示后缀<br><br>		 if(k==0||p[j]==p[k])//k=0表示移动到子串开头 <br><br>		 //前后缀相同 <br><br>		 {<br><br>		 	++k;<br><br>		 	++j;<br><br>		 	next[j]=k;//next函数的值等于k <br><br>		 	<br><br>		 } <br><br>		 else<br><br>		 	k=next[k];<br><br> 	}<br><br> } <br><br> int KMPSearch(char main1[],char sub[])<br><br> {<br><br> 	int i=0,j=0;<br><br> 	int a=strlen(main1),b=strlen(sub);<br><br> 	while(i&lt;a&amp;&amp;j&lt;b)<br><br> 	{<br><br> 		if(j==0||main1[i]==sub[j])<br><br> 		{<br><br> 			i++;//i并不回溯 <br><br> 			j++;<br><br> 		}<br><br> 		else<br><br> 			j=next[j];<br><br> 	}<br><br> 	if(j==b) <br><br> 		return i-j+1;//匹配成功<br><br>	else<br><br>		return 0; <br><br> } <br><br>int main()<br><br>{<br><br>	system("color F0");<br><br>	printf("输入主串和子串\n");<br><br>	gets(main1);<br><br>	gets(sub);<br><br>	getnext(main1,next);<br><br>	<br><br>	if(KMPSearch(main1,sub))<br><br>	{<br><br>		printf("匹配成功！在第%d位出现子串\n",KMPSearch(main1,sub));<br><br>	}<br><br>	else<br><br>		printf("没有找到\n");<br><br>	system("pause");<br><br>	return 0;<br><br>}<br><br>这是我第一次贴代码，因为呢，我自己也想留一个纪念，毕竟这首尾对称滑动算法太神奇了，怕以后忘了记不住啊，先保存一下咯，当然，附带上暴力算法，非计算机专业的，如果懂c语言也可以看看哦。</div><div><br></div></div>
+                                                
+                                            
+			</article>
+			<div id="comments_html">
+				<h5 class="mt-3">评论
+					<span class="badge badge-primary badge-pill">1</span>
+					<span class="text-primary p-1 float-right fa fa-thumbs-up mr-2 cursor" title="点赞数" data-field="blogid" data-target="1510754489">0</span>
+					<span class="text-primary p-1 float-right fa fa-eye mr-2 cursor" title="访问数" data-field="blogid" data-target="1510754489">0</span>
+				</h5>
+				
+				
+				
+					
+						
+						<hr>
+						<div class="comments mt-2">
+							<div class="comment">
+								<div class="d-flex justify-content-start ">
+									<div class="comment-avatar">
+										<a class="avatar p-0 m-0" target="_blank" href="https://user.qzone.qq.com/619774944">
+											<img class="lazyload loading w-100 h-100 border rounded-circle" src="../Common/images/619774944" >
+										</a>
+									</div>
+									<div class="comment-infos ml-2">
+										<a target="_blank" href="https://user.qzone.qq.com/619774944">
+											<span>秋天的怀念 </span>
+										</a>
+										
+										<span class="border-warning border rounded text-warning small p-1" title="当前楼层">#1</span>
+										<div class="text-muted small">2017-11-15 22:57:22</div>
+									</div>
+								</div>
+								<div class="comment-text">
+									<div class="messageText">
+										<p><a href='https://user.qzone.qq.com/1975475620' target='_blank'>@16  山东   马海燕</a> 作业记得查收 </p>
+										
+									</div>
+									
+									
+										
+											<div class="comments">
+												<div class="comment">
+													<div class="d-flex justify-content-start">
+														<div class="comment-avatar">
+															<a class="avatar p-0 m-0 " target="_blank" href="https://user.qzone.qq.com/1975475620">
+																<img class="lazyload loading w-100 h-100 border rounded-circle" src="../Common/images/1975475620">
+															</a>
+														</div>
+														<div class="comment-infos ml-2">
+															<a target="_blank" href="https://user.qzone.qq.com/1975475620">
+																<span>16  山东   马海燕 </span>
+															</a>
+															
+															<div class="text-muted small">2017-11-15 23:02:56</div>
+														</div>
+													</div>
+													<div class="comment-text">
+														<div class="messageText">
+															<p><a href='https://user.qzone.qq.com/619774944' target='_blank'>@秋天的怀念</a>放心吧，我什么时候忘过 </p>
+															
+														</div>
+													</div>
+												</div>
+											</div>
+										
+									
+								</div>
+							</div>
+						</div>
+					
+				
+			</div>
+		</div>
+	</main>
+	<script>
+		$(function() {
+			// 日志中的图片
+			$('#blog_content .QZBLOG_IMG_LOADING').on('click', function() {
+				// 画廊相册DOM
+				const $galleryDom = $('#blog_content').get(0);
+				// 点击的图片的索引位置
+				const imgIdx = $(this).attr('data-idx');
+
+				if ($galleryDom.galleryIns) {
+					$galleryDom.galleryIns.openGallery(imgIdx * 1);
+					return;
+				}
+
+				// 实例化画廊相册
+				const galleryIns = lightGallery($galleryDom, {
+					plugins: [
+						lgZoom,
+						lgFullscreen,
+						lgThumbnail,
+						lgRotate
+					],
+					mode: 'lg-fade',
+					selector: '.lightgallery',
+					download: false,
+					thumbnail: true,
+					loop: false
+				});
+				$galleryDom.galleryIns = galleryIns;
+
+				// 打开画廊
+				galleryIns.openGallery(imgIdx * 1);
+			})
+		});
+	</script>
+</body>
+
+</html>

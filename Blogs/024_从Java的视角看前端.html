@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<link rel="icon" href="../Common/images/favicon.ico">
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>QQ空间备份-从Java的视角看前端</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.6.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/lightgallery/2.3.0/css/lightgallery.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/lightgallery/2.3.0/css/lightgallery-bundle.min.css">
+	<link rel="stylesheet" type="text/css" href="../Common/css/common.css">
+	<script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.staticfile.org/lodash.js/4.17.21/lodash.min.js"></script>
+	
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/lightgallery.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/zoom/lg-zoom.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/video/lg-video.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/thumbnail/lg-thumbnail.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/rotate/lg-rotate.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/fullscreen/lg-fullscreen.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/comment/lg-comment.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/autoplay/lg-autoplay.min.js"></script>
+	<script src="https://www.lvshuncai.com/custom/js/clicklove.min.js"></script>
+	
+	<script type="text/javascript" src="../Common/json/config.js"></script>
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" target="_blank" href="https://github.com/ShunCai/QZoneExport">QQ空间导出助手</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb bg-dark">
+						<li class="breadcrumb-item"><a href="../index.html">个人中心</a></li>
+						<li class="breadcrumb-item"><a href="index.html">日志</a></li>
+						<li class="breadcrumb-item active" aria-current="page">日志详情</li>
+					</ol>
+				</nav>
+			</div>
+		</nav>
+	</header>
+	<main role="main">
+		<div class="container py-5 mt-3" style="max-width: 920px;">
+			<div id="blog_info" class="text-center">
+				<h2 id="blog_title" class="text-warning">从Java的视角看前端</h2>
+				<div>
+					<span id="blog_time" class="text-muted">2021-09-04 21:28</span>
+				</div>
+			</div>
+			<article id="blog_content" class="mt-3 p-2">
+				
+                                                
+                                                <div><div>作为一名后端程序员出身的我，不知不觉踏入这个行业也有一年多了，这一年以来，我感觉自己就像一只蚕宝宝啃桑叶一般，一点一点的从Java开始，把前后端的流行技术吃了个遍，虽然相较于整个开发行业而言，我学的这点技术也不过相当于一片桑林之叶，但我觉得能够把这片桑叶一点点蚕食，吞进肚子，并且消化理解也是需要有些本事和悟性的，同样从一名 Java后端工程师渐渐成长为全栈的我，也想在这里从Java的视角谈一谈我对web全栈的一得之见。<br><br><br>其实在我学web前端之前，我总觉得HTML语言——也就是浏览器网页的核心语言，是一团乱七八糟的鬼画符，在这儿做个b标记，字体就会变粗，在那儿做个a标记，网页就会跳转。至于万能的div标签，单纯的写在网页上，并不会出现任何可视化的效果。我经常看不懂这些乱七八糟的标签，以莫名其妙的方式诡异的组合竟然就成了漂亮美观的网页（当然还得加上css层叠样式表）。对于后端程序员来说，这样毫无逻辑可言的标记性语言简直是一场巨大的灾难。这直接就触及到了 Html语言的本质特性——无执行逻辑，完全结构化，依赖于层次嵌套。而后端程序员所面对的则是数据流，从数据库访问对象到业务逻辑层，再到前端控制层。整个程序执行的流程在后端码农的眼中，只不过是数据从数据库经过中间的逻辑转换，最后流到网页中显示，进而和用户产生动态交互的过程。所以于后端程序员而言，再漂亮的网页在其眼中也只不过是结构化的数据在数据库之外的另外一种呈现方式而已。这是前后端最初的样子，他们是那样的泾渭分明，各司其职，后端负责传数据，前端负责渲构建网页视图，最多用css动画和用户做一些简单的交互，因此过去的前端往往不受待见，认为没有什么技术含量，往往都是网页美工兼职就能干干的。<br><br><br>到了第2阶段，学了JavaScript之后，开始稍微有些意思了，我们可以借用JavaScript这个运行在浏览器端的脚本语言与用户进行交互，并且控制网页内容，让网页动起来。通过 DOM操作和事件监听，让用户能够轻松的控制网页内容，展现一些炫酷的网页特效。其实说起JavaScript的起源，还是借鉴Java的设计思想实现的。据说是网景公司的某位大牛，利用10天的时间设计了这样一门“强大”的脚本语言。虽说Java是不是最早的面向对象的程序语言，但可以确定的是面向对象这一重要思想正是由于 Java的诞生才渐渐的生根，成为当今程序界两大基础的编程思想之一（另一重要思想基础是面向过程，就是大家都学过的C语言大哥的内在思想）。说js强大，是因为他不需要像其他的后端语言那样经过编译就能够直接在浏览器端运行，并且让网页产生动态效果，这在当时可说是跨时代的突破。而且JavaScript的对于客户来说是十分安全的。因为它只能运行在浏览器端，不会读取到硬盘中的数据，所以对用户隐私无从窥探。但对于Java程序员来说，初学js的时候特别难受，因为JavaScript的数据类型非常少，是一门弱类型的语言，而且在早期的es5的标准里面变量竟然可以先使用，再声明，还美其名曰变量提升。这种违反Java程序员常识的操作，在早期的js里面随处可见，字符串和数字竟然可以“相等”（==符号可以实现这一点），最让人头疼的是this的指向竟然可以变来变去（学过的人都知道这是es5实现继承的基础），函数竟然可以作为另一个函数的参数等等，各种千奇百怪的操作层出不穷。此时的js在Java程序员面前像是一个漏洞百出，却又十分显摆的拙劣模仿者，让刚开始接触js的我头疼不已。但回头想想，人家只用10天就开发了这门语言，有些错误也在所难免嘛，我也就忍了。这一阶段的前端，于后端程序员而言虽然不再那么陌生，但感觉就像是武侠小说中那些偷学其他门派武功的贼，学嘛也学了一点，但是只得其皮毛，不得其精髓。完全四不像。 尤其是复杂的 DOM操作，经常让人觉得是css不够用，然后把Java的语法拿过来， 说我用css选择器帮你选元素，然后用对象调用方法对元素进行操作好不好？对此我经常会浮现出一脸嫌弃的表情，无可奈何地把手一摊，好吧，你说怎样就怎样。然后努力的去忘记Java的语法，去分析页面的整体结构和文档模型。然后在兄弟节点子节点，父节点之间绕来绕去，最后一通操作，莫名其妙地这个功能竟然实现了。到了这个阶段，前端通过JavaScript似乎和后端产生了那么一点点联系，毕竟后端的很多语言都是面向对象思想设计的，在部分语言里面，面向过程和面向对象两者也都有，比如著名的C++语言。而JavaScript也是面向对象的，这使得前后端之间的关系突然变得微妙起来，前后端再也不是之前两个孤立的行业分支了，似乎有了联手的迹象。<br><br>&nbsp;JavaScript出现一段时间之后，随着计算机行业的发展，用户的需求也越来越多越来越细。正如前文所提到的那样，原生JavaScript的DOM操作实在过于繁琐。往往实现一个简单的购物车功能，就要两三百行代码。其根本原因在于现在的网页做得越来越精细，结构也越来越复杂，并不是像刚开始的时候页面布局简单，层次清晰。这样原生JavaScript 的 DOM操作就会变得臃肿，甚至在某些情况下成本非常高。代码可读性也变得非常的差。于是某些人又打起了Java的主意。面向对象最重要的特性是什么？对！不就是封装吗？那我把复杂的 DOM操作通通封装到一个函数库里面让开发者直接调用函数库中的函数不就得了吗？于是曾经风靡一时的jQuery函数库就此应运而生。他们的宗旨就是写的少，做的多，用最简洁的代码实现最复杂的功能。其本质就是基于JavaScript的语法，使用工厂函数，对原生js操作进行封装，开发者只需要调用对应的方法即可完成一些通用的功能。比如对元素的遍历，增删改查等等。甚至 jQuery 把链式编程的思想运用到了极致，通过一个对象不停的调用方法。一句代码就能实现一连串操作，他大大的简化了DOM操作。在十几年前。jQuery曾经火极一时，甚至有人说掌握了前端三大剑客（ Html css, js）就能走遍天下。我当时也是沉迷于jQuery，深陷其中，不可自拔。经常用它做一些好玩的特效，比如说，旋转的立方体，跳跃的爱心，手风琴特效，甚至实现一个非常好看的电子钟（结合css3动画）当我看见一行行代码，一行行数据变成绚丽多彩的动画时，恍惚间产生了一种我是上帝的感觉，毕竟对于画画一窍不通的我，能够用数字去画图像，用数据计算去构建图形，做出绚丽的动画效果，还是十分振奋人心的。到这时我已经完全忘记了Java，一心沉迷在网页特效中。<br><br><br>直到后来，接触了node.js，一个巨大的基于JavaScript的工具管理库，它使得 JavaScript真正成为一门在功能上和Java媲美后端语言。通过模块化开发，单一的JavaScript脚本渐渐从浏览器端分离开来，成为一个个单独的模块。这就有点类似于Java中类模型的概念了。将一个个JavaScript对象进行封装，需要的时候进行导入，用一个个模块组装网页应用，既方便又快捷。最重要的是我们程序员有时并不需要了解模块内部实现的细节，只要把他导出的对象进行引入，然后调用其方法即可。这是不是和Java中的类在实现思想上很相似呢？模块化开发的出现在很大程度上得益于es6语法标准的发布， es6标准的发布使得JavaScript变得更像一门面向对象的语言，并且把es5当中那些令后端程序员感到头疼不已，疏漏百出的语法直接规范化，很多初学者包括我刚接触es6这个概念的时候，总会把es6当做是 ECMAscript2015的简称，其实某种意义上，es6只是相对于es5这个早期语法规范的下一代版本，并且还在不断的完善和更新中，并不单单是指2015年提出的 JavaScript ECMA语法规范。而es6的出现，直接把“借鉴”两个字的做法摆在了明面上：extends，interface，static，这些以前只能在后端程序语言中出现的概念关键字，也进入了JavaScript的生态圈。可以说JavaScript语言的生态扩展是前后端走向融合的关键。 而node js这一工具管理库，正是用来管理应用当中的各个模块的。最为关键的一点是，通过node.js JavaScript竟然可以像后端语言那样操作数据库，这相当于是把 JavaScript完全变为了一门后端语言，因为在传统的认知当中，只有后端语言能和数据库连接，并且进行数据操作。而node.js的出现，也恰恰成为了之后三大框架崛起的基础。<br><br>&nbsp;React， Vue， Angular，作为当前流行的三大框架，一直被新生代的前端开发者奉为三大神。其中Angular出现的最早， Vue作为最流行的由国人开发的前端框架，已经让曾经风靡业界的jQuery黯然失色。甚至新生代程序员们都以一种鄙夷的眼光去看待它，认为他就像七八十年代的一些老掉牙的锤子和榔头一样，早应被现代化的机械扳手所取代。框架这个概念，最早出现在smalltalk这一面向对象语言里，他指的是在一个大型的互联网应用中，通常都应有一些通用的操作，如数据库事务管理，程序对象的依赖注入，业务逻辑的流程控制，程序运行时的日志打印，对于前端请求的接收和响应，无论程序的具体业务流程如何，这些通用的操作应该成为所有应用的必备流程。好似应用的骨架，缺少了这些操作， 整个应用就无法运行起来，或者说在运行过程中会产生意想不到的错误。这对于一个程序来说无疑是致命的。而这些操作的流程大多相似，于是后端程序员们充分发挥了面向对象语言的抽象性这一优势，对这些操作进行底层封装，抽象成一套完整的构建工具。他们说，嘿，伙计，我已经把架子给你们搭好了，你们想用钢筋混凝土还是砖头瓦片填满这个屋架随你们，你们可以在我这个架子上任意发挥哦！嘿嘿，帮你们省了不少力气吧！随着2003年spring框架的出现， Java面向对象思想才算是真正有了用武之地，抛弃了以前耦合度很高的jsp加servlet开发，直接利用注解配合依赖注入和控制反转，省去了不少必要却繁琐的步骤，开发效率自然大大提升。或许是得益于spring 框架的启发， 以Vue为代表的一众前端框架们，都在思想上向后端靠拢着。如vue的MVVM，恐怕就是来源于后端通用的MVC模型，用数据来驱动视图，也正是基于 MVC中模型层与视图层同步更新的策略。依我看来，Vue当中的生命周期，是对类生命周期的一种拓展。 React的状态管理和vuex中全局状态管理，恐怕都来源于静态成员变量共享性的拓展。至于 Vue中的数据绑定和React的受控组件恐怕也是受到了静态成员变量性质的影响，或者说这些都是数据共享，数据动态化的一种体现。当前端工程师们开始对数据进行操作的时候，他们其实已经在不知不觉中变成了全栈工程师。至此才有了大前端的概念。至于Java中的23种设计模式，其实js里面或多或少的都有所体现，只不过我们用的时候感觉不到罢了。<br><br><br>是的，从Java的视角看web前端，你会惊讶的发现抛去网页中的html和css，二者竟如此的相似，甚至可以说在慢慢走向同化，这或许是因为网页布局的精致化，网站功能的复杂化，网站应用架构的层次化所导致的必然结果。随着移动端的出现，网站的通用化设计将成为一种必然的趋势，而通用化设计的过程就是把具体的功能抽象化，使之适应不同的开发环境。这本身就和面向对象向上抽取的思想有许多相似之处。借用金庸老先生《笑傲江湖》中，日月神教一句豪气干云的宣言：恐怕千秋万载之后，面向对象思想真会一统江湖。（面向过程： 哼！所有的面向对象思想到最后还不是得靠我呀，没有我，你调用来调用去，到最后都变成死循环了。我：啊，对对对对，原来你才是所有程序设计的根本啊，哈哈哈）<br><br><br>于我个人而言，看到现在前端行业兴起，Java人力市场趋于饱和，其实是有些失落的。或许一门语言真的能成为一个程序员的信仰吧，人无千日好，花无百日红，这个道理虽然人人都懂，但是在看到Java在流行语言排行榜上被Python超过的时候，心底却有那么一丝丝的难过，作为一名Java出身的程序员，我不会像网上段子所说的那样挤兑Python。我深信每一门语言都各有所长，也各有所短。毕竟这是一个讲究团队合作的时代，同样，不同的语言，只要能够充分取长补短，就并无好坏之分。对于前端行业，亦是如此。即便框架再多，每一种框架总会具有它的独特性和优越性，而框架的迭代更新也是必然的。但在情感上，花精力去学一门语言并且爱上他之后， Java于我而言就不仅仅是一门技术，而是一种思想的外在体现。他教会了我很多思考问题的方式，我也在解决问题的过程中和他成为了朋友。所以，无论怎样，我始终相信 Java会和面向对象思想一起带着互联网应用，走向更美好的未来。</div><div><br></div></div>
+                                                
+                                            
+			</article>
+			<div id="comments_html">
+				<h5 class="mt-3">评论
+					<span class="badge badge-primary badge-pill">1</span>
+					<span class="text-primary p-1 float-right fa fa-thumbs-up mr-2 cursor" title="点赞数" data-field="blogid" data-target="1630762128">0</span>
+					<span class="text-primary p-1 float-right fa fa-eye mr-2 cursor" title="访问数" data-field="blogid" data-target="1630762128">0</span>
+				</h5>
+				
+				
+				
+					
+						
+						<hr>
+						<div class="comments mt-2">
+							<div class="comment">
+								<div class="d-flex justify-content-start ">
+									<div class="comment-avatar">
+										<a class="avatar p-0 m-0" target="_blank" href="https://user.qzone.qq.com/2640184309">
+											<img class="lazyload loading w-100 h-100 border rounded-circle" src="../Common/images/2640184309" >
+										</a>
+									</div>
+									<div class="comment-infos ml-2">
+										<a target="_blank" href="https://user.qzone.qq.com/2640184309">
+											<span>覃家肥 </span>
+										</a>
+										
+										<span class="border-warning border rounded text-warning small p-1" title="当前楼层">#1</span>
+										<div class="text-muted small">2021-09-04 21:48:50</div>
+									</div>
+								</div>
+								<div class="comment-text">
+									<div class="messageText">
+										<p>学长，你这文章我能转载吗<img src='../Common/images/e248.gif' > </p>
+										
+									</div>
+									
+									
+										
+											<div class="comments">
+												<div class="comment">
+													<div class="d-flex justify-content-start">
+														<div class="comment-avatar">
+															<a class="avatar p-0 m-0 " target="_blank" href="https://user.qzone.qq.com/619774944">
+																<img class="lazyload loading w-100 h-100 border rounded-circle" src="../Common/images/619774944">
+															</a>
+														</div>
+														<div class="comment-infos ml-2">
+															<a target="_blank" href="https://user.qzone.qq.com/619774944">
+																<span>秋天的怀念 </span>
+															</a>
+															
+															<div class="text-muted small">2021-09-04 21:52:04</div>
+														</div>
+													</div>
+													<div class="comment-text">
+														<div class="messageText">
+															<p><a href='https://user.qzone.qq.com/2640184309' target='_blank'>@覃家肥</a> 欢迎转载 </p>
+															
+														</div>
+													</div>
+												</div>
+											</div>
+										
+											<div class="comments">
+												<div class="comment">
+													<div class="d-flex justify-content-start">
+														<div class="comment-avatar">
+															<a class="avatar p-0 m-0 " target="_blank" href="https://user.qzone.qq.com/619774944">
+																<img class="lazyload loading w-100 h-100 border rounded-circle" src="../Common/images/619774944">
+															</a>
+														</div>
+														<div class="comment-infos ml-2">
+															<a target="_blank" href="https://user.qzone.qq.com/619774944">
+																<span>秋天的怀念 </span>
+															</a>
+															
+															<div class="text-muted small">2021-09-04 21:52:30</div>
+														</div>
+													</div>
+													<div class="comment-text">
+														<div class="messageText">
+															<p><a href='https://user.qzone.qq.com/2640184309' target='_blank'>@覃家肥</a> 你看得懂吗？我估计你看都不一定能看懂吧。 </p>
+															
+														</div>
+													</div>
+												</div>
+											</div>
+										
+											<div class="comments">
+												<div class="comment">
+													<div class="d-flex justify-content-start">
+														<div class="comment-avatar">
+															<a class="avatar p-0 m-0 " target="_blank" href="https://user.qzone.qq.com/619774944">
+																<img class="lazyload loading w-100 h-100 border rounded-circle" src="../Common/images/619774944">
+															</a>
+														</div>
+														<div class="comment-infos ml-2">
+															<a target="_blank" href="https://user.qzone.qq.com/619774944">
+																<span>秋天的怀念 </span>
+															</a>
+															
+															<div class="text-muted small">2021-09-04 21:52:38</div>
+														</div>
+													</div>
+													<div class="comment-text">
+														<div class="messageText">
+															<p><a href='https://user.qzone.qq.com/2640184309' target='_blank'>@覃家肥</a> 嘻嘻嘻 </p>
+															
+														</div>
+													</div>
+												</div>
+											</div>
+										
+											<div class="comments">
+												<div class="comment">
+													<div class="d-flex justify-content-start">
+														<div class="comment-avatar">
+															<a class="avatar p-0 m-0 " target="_blank" href="https://user.qzone.qq.com/2640184309">
+																<img class="lazyload loading w-100 h-100 border rounded-circle" src="../Common/images/2640184309">
+															</a>
+														</div>
+														<div class="comment-infos ml-2">
+															<a target="_blank" href="https://user.qzone.qq.com/2640184309">
+																<span>覃家肥 </span>
+															</a>
+															
+															<div class="text-muted small">2021-09-04 21:52:52</div>
+														</div>
+													</div>
+													<div class="comment-text">
+														<div class="messageText">
+															<p><a href='https://user.qzone.qq.com/619774944' target='_blank'>@秋天的怀念</a><img src='../Common/images/e252.gif' >转发再说 </p>
+															
+														</div>
+													</div>
+												</div>
+											</div>
+										
+									
+								</div>
+							</div>
+						</div>
+					
+				
+			</div>
+		</div>
+	</main>
+	<script>
+		$(function() {
+			// 日志中的图片
+			$('#blog_content .QZBLOG_IMG_LOADING').on('click', function() {
+				// 画廊相册DOM
+				const $galleryDom = $('#blog_content').get(0);
+				// 点击的图片的索引位置
+				const imgIdx = $(this).attr('data-idx');
+
+				if ($galleryDom.galleryIns) {
+					$galleryDom.galleryIns.openGallery(imgIdx * 1);
+					return;
+				}
+
+				// 实例化画廊相册
+				const galleryIns = lightGallery($galleryDom, {
+					plugins: [
+						lgZoom,
+						lgFullscreen,
+						lgThumbnail,
+						lgRotate
+					],
+					mode: 'lg-fade',
+					selector: '.lightgallery',
+					download: false,
+					thumbnail: true,
+					loop: false
+				});
+				$galleryDom.galleryIns = galleryIns;
+
+				// 打开画廊
+				galleryIns.openGallery(imgIdx * 1);
+			})
+		});
+	</script>
+</body>
+
+</html>
