@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<link rel="icon" href="../Common/images/favicon.ico">
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>QQ空间备份-“学”以致“用”——数据库应用课程与编码思维培养的实践与反思</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.6.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/lightgallery/2.3.0/css/lightgallery.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/lightgallery/2.3.0/css/lightgallery-bundle.min.css">
+	<link rel="stylesheet" type="text/css" href="../Common/css/common.css">
+	<script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.staticfile.org/lodash.js/4.17.21/lodash.min.js"></script>
+	
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/lightgallery.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/zoom/lg-zoom.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/video/lg-video.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/thumbnail/lg-thumbnail.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/rotate/lg-rotate.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/fullscreen/lg-fullscreen.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/comment/lg-comment.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/autoplay/lg-autoplay.min.js"></script>
+	<script src="https://www.lvshuncai.com/custom/js/clicklove.min.js"></script>
+	
+	<script type="text/javascript" src="../Common/json/config.js"></script>
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" target="_blank" href="https://github.com/ShunCai/QZoneExport">QQ空间导出助手</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb bg-dark">
+						<li class="breadcrumb-item"><a href="../index.html">个人中心</a></li>
+						<li class="breadcrumb-item"><a href="index.html">日志</a></li>
+						<li class="breadcrumb-item active" aria-current="page">日志详情</li>
+					</ol>
+				</nav>
+			</div>
+		</nav>
+	</header>
+	<main role="main">
+		<div class="container py-5 mt-3" style="max-width: 920px;">
+			<div id="blog_info" class="text-center">
+				<h2 id="blog_title" class="text-warning">“学”以致“用”——数据库应用课程与编码思维培养的实践与反思</h2>
+				<div>
+					<span id="blog_time" class="text-muted">2024-04-12 15:58</span>
+				</div>
+			</div>
+			<article id="blog_content" class="mt-3 p-2">
+				
+                                                
+                                                <div class="blog_details_20120222"><div>&nbsp;<font style="font-size:16pt">前不久</font><span style="font-size:16pt">有幸</span><font style="font-size:16pt">和曾经的导师合作上了一堂关于数据库设计与应用的公开课。作为我们课题小组精打细磨出的“精彩一课”。不得不说，在教学设计和创意方面，校方的教师团队的确比我们工程师要高明许多，通常，作为工程师我们更多地是从给定的方案展开分析，一步步地实现最终的系统功能，而作为精品课，校方更多看重的是这一课题的社会和思政意义，如何利用一堂课提出社会上关注的热点问题，设计解决方案到最终实施方案解决问题的过程，从这个角度来说，将解决行业问题作为课程设计的切入点，这本就是我们开设课程的初衷。但是，如果将这个过程浓缩在短短的45——90分钟的课堂之内，从实践的操作性和实际教学效果来说，可就要大打折扣了。</font></div><span><div><font style="font-size:16pt"><br></font></div><div><span style="font-size:21.3333px">以数据库设计为例，在平时的课堂中，我都会引入企业真实项目，手把手地从最初的需求分析一步步推导，引导学生完成最终的物理设计，最终利用翻转课堂的形式让每个小组上台分享自己小组的作品，在这个过程中，我发现对于大多数学生来说，理论基础的薄弱往往成了他们的“致命伤”。在数据库设计过程中，需要用到很多抽象的理论和概念，诸如范式，关系模式等，而即便学生之前已经修完了数据库概论课程，对于基本概念理论的认知还是停留在“应试做题”上，只会选个ABCD，填个简单的名词解释，也许对他们来说，根本不能理解他们写下文字</span><span style="font-size:21.3333px">的含义是什么，每年无论是上课还是辅导学生做毕业设计，开发毕设系统，我都得结合具体的项目把这些基础知识重新讲一遍，一讲就是8——10节课。对于任何系统来说，数据存储结构的设计都是非常基础又重要的一环。如果一个系统中没有数据，那么它就是一具“空壳”，所有的业务逻辑也就无从谈起。因而，设计一个“好”的数据库应当是贯穿数据库应用这门课程始终的核心内容。将本应该用一个学期，甚至一个学年才能讲清楚的问题高度浓缩，压缩到45分钟的课堂教学中，总给我这个主讲教师一种十分割裂的“穿越”感，你必须假设说学生已经具备了怎样怎样的基础知识，才能将设计好的教学环节按部就班地进行下去。然而实际上学生可能并不具备你需要他们具备的知识基础。于是乎剩下无非两条路：一是从基础开始，一步步地帮他们重构整个知识基础；第二是想办法把存储在学生知识仓库的“死知识”通过某种形式调动起来。很显然，第二种方式更符合行为主义和建构主义的教育理论，通过反复的操作和实践在学生原有的知识基础上去构建完整的知识体系。然而，这就产生了新问题：在实操的过程中势必存在着“试错”的过程，这个过程很花时间。这和学校计划在规定课时内完成教学任务的原则在一定程度上会产生矛盾。于是，当下大部分教师的做法是通过PPT演示文稿把所有的实现过程，包括SQL语句提前打在上头，让学生照着上机练习，这样讲起来的确出错的“概率”少了，但问题是学生会陷入“机械照搬”的无效循环。因为PPT上代码是作为整体呈现的，无法呈现教师在编码过程中从分析需求到编码实现的具体过程。从展现思维过程的角度，PPT似乎不如传统的板书过程直观，尽管PPT可以做出炫目的动画，但是却无法替代传统板书一笔一划逐层剖析教师思维的过程。我并不以为板书式教学是一种“低效”的教学方式，尤其针对于注重推导过程的理工科而言。与单纯地把SQL语句往PPT上一贴相比，利用命令行运行出来的结果显然更具成效，也更具说服力。虽说黑洞洞的窗口显得特别枯燥，但那就是数据的“本来面目”，用五彩斑斓的界面来吸引学生，博取学生的眼球，远非长久之计。所以，我个人上课很少用PPT，从来都是现场演示编码过程，过程中不怕出错，也不会一味赶进度，因为在我的认知中，“教”的目的从来是为了让学生“会”，讲透永远比讲全更重要。</span></div><div><span style="font-size:21.3333px"><br></span></div><div><span style="font-size:21.3333px">关于数据库应用课程的另一大教学难点就是如何让学生真的将数据库“用”&nbsp;起来。目前关于数据库教科书上最多的应用案例无非是选课系统，购物商城。一届一届教下来，似乎成了老生常谈，自己也感到十分厌烦，所以这次公开课我们团队选择了以“统计大学生毕业生就业数据”为应用课题，课题本身是十分贴近大学生的生活应用场景的，也聚焦了当下社会的热点话题，但问题在于大学课堂上学生参与的主动性并不强。课堂是为学生开设的，也是让学生参与的。但就像我的同事说的一样：你即使设计的再精彩，讲的再透彻，他（指学生）不听的还是该不会的不会。以“学生为中心”的课堂如果作为“主体”的学生都不愿意配合，不愿意参与那再怎么做都是徒劳的，就像我经常在课堂上启发学生思考，无数次想采用“&nbsp;诘问法”引导学生抛出问题，但大多数情况下，叫起来的只是一个个“木头人”，因为在学生眼中没有问题，或者压根不关心这个领域内的问题，你让他们怎么抛出问题？比起互动提问，他们更愿意“机械照搬”，因为不用动脑子。除非到了和他们个人切身利益相关的时候，比如毕设答辩。所以苏格拉底之所以成为苏格拉底，除了他自身的智慧超群之外，还因为他有着柏拉图这样认真思考的学生，因而也才有了追求真理的亚里士多德。师生永远都是互相成就，相互奔赴。一堂好课应由师生共同打造，学生带着一颗求知的心，教师带着奉献的热情，双向奔赴。而不是为了打造“精品”让学生沦为“演员”，让教师无奈地变为“宣讲员”。由此，我又想起当初做助教的那一段时间，经常在企业的实训室陪着小组成员一起讨论项目到凌晨的日子，最终每个小组都交出了一个完整的项目，虽然由于时间仓促，项目功能并不是那么完美，但我敢说那一段时间真的是“全员参与”，师生共同努力，完成企业项目。因为只有这样，学员们才能顺利地找到一份工作，也只有利益相关动机驱使下，学生才能全力以赴。</span></div><div><span style="font-size:21.3333px"><br></span></div><div><span style="font-size:16pt">我不想过多地批评学生被动，或者把这些教学过程中自身遇到类似的问题简单地归咎于课程体系的组织。实际上，校方的出发点很好，所设计的课程体系也特别适应当下多元化人才培养的需求。但问题是如何用一条“知识产业链”让不同的课程融会贯通，而非像现在这样“割裂，穿越”式完成课堂教与学，这就需要整个专业的教师通力协作，也需要专业的学生增强专业认知和认同感，这样才能真正将理论用起来。这样的“课堂”才是“精品”的课堂，这样培养出来的人才才是真正的应用型人才，成熟编码思维是通过一堂又一堂的课堂编码实践积累而成的，而不是靠知识点的高度浓缩，做成一味高汤，硬给学生“灌”出来的，细水长流重积累，千磨万敲出真知。这才是<span style="display:none"></span></span><span style="font-size:16pt">“学”以致“用”的正确打开方式。<span style="display:none"></span></span></div></span></div>
+                                                
+                                            
+			</article>
+			<div id="comments_html">
+				<h5 class="mt-3">评论
+					<span class="badge badge-primary badge-pill">0</span>
+					<span class="text-primary p-1 float-right fa fa-thumbs-up mr-2 cursor" title="点赞数" data-field="blogid" data-target="1712908722">0</span>
+					<span class="text-primary p-1 float-right fa fa-eye mr-2 cursor" title="访问数" data-field="blogid" data-target="1712908722">0</span>
+				</h5>
+				
+				
+				
+					
+				
+			</div>
+		</div>
+	</main>
+	<script>
+		$(function() {
+			// 日志中的图片
+			$('#blog_content .QZBLOG_IMG_LOADING').on('click', function() {
+				// 画廊相册DOM
+				const $galleryDom = $('#blog_content').get(0);
+				// 点击的图片的索引位置
+				const imgIdx = $(this).attr('data-idx');
+
+				if ($galleryDom.galleryIns) {
+					$galleryDom.galleryIns.openGallery(imgIdx * 1);
+					return;
+				}
+
+				// 实例化画廊相册
+				const galleryIns = lightGallery($galleryDom, {
+					plugins: [
+						lgZoom,
+						lgFullscreen,
+						lgThumbnail,
+						lgRotate
+					],
+					mode: 'lg-fade',
+					selector: '.lightgallery',
+					download: false,
+					thumbnail: true,
+					loop: false
+				});
+				$galleryDom.galleryIns = galleryIns;
+
+				// 打开画廊
+				galleryIns.openGallery(imgIdx * 1);
+			})
+		});
+	</script>
+</body>
+
+</html>

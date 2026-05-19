@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<link rel="icon" href="../Common/images/favicon.ico">
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>QQ空间备份-行得其道功自成-对编程教学一点不成熟的思考</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/bootstrap/4.6.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/lightgallery/2.3.0/css/lightgallery.min.css">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/lightgallery/2.3.0/css/lightgallery-bundle.min.css">
+	<link rel="stylesheet" type="text/css" href="../Common/css/common.css">
+	<script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.staticfile.org/lodash.js/4.17.21/lodash.min.js"></script>
+	
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/lightgallery.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/zoom/lg-zoom.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/video/lg-video.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/thumbnail/lg-thumbnail.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/rotate/lg-rotate.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/fullscreen/lg-fullscreen.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/comment/lg-comment.min.js"></script>
+	<script src="https://cdn.staticfile.org/lightgallery/2.3.0/plugins/autoplay/lg-autoplay.min.js"></script>
+	<script src="https://www.lvshuncai.com/custom/js/clicklove.min.js"></script>
+	
+	<script type="text/javascript" src="../Common/json/config.js"></script>
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+			<a class="navbar-brand" target="_blank" href="https://github.com/ShunCai/QZoneExport">QQ空间导出助手</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb bg-dark">
+						<li class="breadcrumb-item"><a href="../index.html">个人中心</a></li>
+						<li class="breadcrumb-item"><a href="index.html">日志</a></li>
+						<li class="breadcrumb-item active" aria-current="page">日志详情</li>
+					</ol>
+				</nav>
+			</div>
+		</nav>
+	</header>
+	<main role="main">
+		<div class="container py-5 mt-3" style="max-width: 920px;">
+			<div id="blog_info" class="text-center">
+				<h2 id="blog_title" class="text-warning">行得其道功自成-对编程教学一点不成熟的思考</h2>
+				<div>
+					<span id="blog_time" class="text-muted">2022-11-27 22:25</span>
+				</div>
+			</div>
+			<article id="blog_content" class="mt-3 p-2">
+				
+                                                
+                                                <div><div>2022年的教学工作暂告一段落，在这一年的教学工作中， 我发现，如果要真正做好软件编程类课程的教学，作为教师需要拥有三样法宝： 钻研学问的好奇心，不厌其烦的耐心，还有换位思考的同理心。这三颗“心”，是上好一门技术课的根本，打磨好这三颗心，行得其道功自成。<br><br><br>计算机科学与技术是一门对动手能力要求高，注重实践和系统思考的学科， 本身就要求教师和学生拥有工程意识或研究探索意识，并具备综合运用所掌握的知识、方法和技术解决复杂的实际问题及对结果进行分析的能力。可以说，其本身的学科特点就要求教师养成独立探究和自主思考的习惯，多刨根问底，而不是简简单单的照本宣科，读PPT……作为一门理工类的二级学科，侧重的是以理论指导上机实践，实践是果，理论是因。由果溯因的过程需要的就是钻研学科知识的好奇心，教师首先要能够做到独立探究和自主思考，做“真学问”，先"明理"而后"讲理"，只有这样传授给学生的学问才是有理有据、有思考价值的。同时，把独立探究的精神传递给学生比单纯传授知识要重要得多。<br><br><br>我想在这里，举两个实践教学中的例子，说明一下"刨根问底"的重要性，其一是编程基础课中涉及到的“整数溢出”问题，为什么 Java中byte 类型中 125+5=-126？在其他的编程语言中也存在类似的问题，125+5=-126是我们看到的实际的输出的运算结果。其背后隐藏的原因是取模和补码的思想。 这是由于负数在计算机中独特的存储和表述方式决定了这样的运算结果。那么补码又是什么？大部分教科书上都是这么定义的：补码等于一个数的原码取反再加1。其实，从严格意义上来说，这并不是补码的定义，它仅仅是提供了一种补码的计算方式。因为负数的反码加上这个负数的绝对值正好等于11111111，再加1，就是10000000，也就是8位二进数的模（256)，而负数的补码是它的绝对值的同余数，可以通过模减去负数的绝对值，得到他的补码。由此推导过程可看出真正的补码的定义源自于数学中的同余运算，补码的出现是为了解决负数和负数相加的问题，其理论在《计算机组成原理》中写的清清楚楚。编程教学的基础在于逻辑的推导，由现象推导本质的过程，也就是逻辑思维建立的过程。要是教师没有一颗刨根问底的好奇心，则学生也会不求甚解，自然会知其然而不知其所以然了。<br><br><br>第2个教学案例是MySQL当中关于分页公式的推导,&nbsp; Limit语句中第1个参数的推导公式为（pageNumber - 1) * pageSize;其中，pageNumbe是当前的页数，pageSize 是每页显示的数据条目数。公式的结果就是这样，但其背后的原因又是什么？其实，这是由等差数列的通项公式推导而来的。 Limit语句中第1个参数表示截取索引的起始位置。对于第1条数据来说，其存储索引是0。将之作为等差数列的首项。因为分页的基本思想是从特定的索引开始，每页截取相同条目的数据。每页截取的条目数相当于等差数列的公差。由此推导出，an=（n-1)*pagesize+0，其中， an为第1个分页参数。pageSize为公差，n 为当前页数，也就是pageNumber。自然地（pageNumber - 1) * pageSize也就呼之欲出了， 据我观察，大部分老师讲到该知识点时，往往是直接给出公式，缺乏推导过程，也不给予任何提示。我在授课过程中一般会提示学生根据等差数列的思想去推导，至于具体的推导过程，由学生自己完成，这样抛出问题引发学生思考，源于我自己刨根问底的好奇心，如果我自己在学习过程中没有发现这样的问题，学生自然也不会意识到这个问题，这样的结果的得出就"没有"理论依据，而其推导过程也不过是简单数学的公式应用而已，并不涉及任何高等数学知识，完全在本科学生的接受范围之内。那么为什么不把方法告诉学生呢？有时候，方法真的比结论更重要。只要有那么一点点好奇心，有那么一点点独立的思考，学会抛出问题，我们也就会创造出不一样的课堂。<br><br><br>上好编程课的另一个法宝是不厌其烦的耐心，不仅学生有耐心， 对待系统中出现的错误更要有耐心，我常常跟学生开玩笑："计算机是最讲理的，也是最有耐心的，程序员要是没有耐心，就被bug打败了"，在编程教学过程中，我们常常需要面对的一个问题是如何减少学生的挫败感，提高学生的成就感？其实，对于很多初学编程的人来说，他们最大的挫折往往来自于环境的安装和各类的语法错误，如。英文符号写成中文，缺少空格，缺少大括号等等，其实这些错误人人都会犯，即使有一定熟练度的老手，在面对成千上万行代码时，也难免会漏写一个空格，一个分号，很难有人代码一遍测试通过（特别简单的除外）这时，教师要学会“举重若轻”，将复杂的问题简单化。在协助学生解决bug的过程中，把调错的方法和思路潜移默化地传递给学生，同时教会学生以正确的眼光去看待bug。<br><br>还是举一个我在实践教学中的例子，我有一次带学生写自动登录案例，该学生出现了一种在他看来非常神奇的bug：当他第1次输入用户名密码登录的时候，将cookie存入了浏览器当中，客户端确实也能看到cookie的值， Cookie的存活时间也设置成了7天有效期。然而每次当他关闭浏览器再打开的时候，自动登录就失效了。 最后经过检查发现,他虽然在服务端创建了cookie,也存了值,但却忘记将之加入响应对象,所以客户端虽然有cookie, 但却并不是服务端传过来的那个cookie,而是上一次登录成功之后。存入会话的那个cookie，关了浏览器，会话结束，cookie也就消失了。后来我问他的时候，他说代码嵌套层数过多写烦了，照着之前的代码复制了一下，顺手凭直觉写了一个。其实，很多学生在学习过程中，都不可避免的会有直觉性思维， 包括我自己在高中的时候也经常犯此类的错误。后来我就记住了我高中语文老师的一句话："学会分析啊~"，他如是说。 学会分析，确实是避免直觉思维的最好的方式，也是培养耐心最好的方式。之后我就跟那位学生说：“学会分析啊，要知道编程最讨厌的就想当然了，当一个合格的程序员需要有不厌其烦的耐心才行啊”，我还记得在朋友圈看过这么一个段子：“我以为这个需求30分钟搞定，然而现实却是过去了三个小时，我依然在改bug。”调试的过程就是考验耐心的过程，沉下心来，调上几次，就会将bug转为自己的经验。之后应付类似的错误就得心应手了，受挫感也许就不会那么强。其实学习编程的过程，就是学会和bug共处的过程。学会接受bug，通过耐心把受挫感变为征服欲，慢慢就会爱上它。<br><br><br>对于一名合格的编程教师来说，我常常觉得怎样教比教什么更重要，因为针对于理工科的知识体系而言，所教的都是在客观上相对不变的真理，相比于将这些定理公式以填鸭式的方式通过板书和PPT刻板的传授给学生，不如在教学过程中，通过逻辑推导建立知识点和知识点乃至学科与学科之间的逻辑链条，形成一个前后贯通的知识体系，然后站在这个体系下，用宏观的视角去看，就会发现所有的知识点都有自洽的逻辑,正如能从皮亚诺公理和集合论建立整个数学大厦一样，计算机体系的本质，是信号和数据。0和1来源于电信号的两种不同状态，从某种意义上来说0和1的不同组合也代表了不同的数据，产生了数据，自然要把它存起来。于是就出现了数据库，可以说数据是程序赖以生存的根本，程序本质上就是用指令对数据操作和运算，将不同计算机上的数据，通过电信号建立通道互相传输就成了网络，而我们将存储数据的仓库叫做数据库，研究数据存储和操作方式的方法叫做数据结构与算法。（从本质上来说算法其实就是研究针对特定问题研究如何操作输入数据，得到输出结果过程的描述），而研究如何将数据展现给用户的技术叫可视化技术（从广义上来说web前端开发也属于可视化的范畴）。数据是计算机学科之本。 没有数据的话。计算机也就失去了它的用武之地了。所以在我的课上，会特别强调学科之间的逻辑联系，在做数据库项目的时候，就会不可避免的利用软件工程的思想，去设计项目的整体架构，然后，一步一步推导数据库的概念图设计和逻辑关系图设计及物理存储结构设计，然后借助具体的编程语言。将之前设计的蓝图加以实现，最后再用可视化技术将设计的成果展现给用户看，这就是工程思想的直观体现。如果没有跨学科的大局观和立足于整体的系统思维，自然就会陷入面对问题无从下手的窘境。这也是我之前上课经常遇到的一个问题：针对特定的需求，学生往往感到无从下手，然后做设计时觉得缺这少那，经常返工。如果他们能够在脑中建立跨学科之间的联系，学会用逻辑思维思考工程问题，很多的时候问题就会迎刃而解。<br><br>对待具体学科也是这样，建立学科内部知识的逻辑链条往往就不用去死记硬背那些概念和定理，而是用推导的方式去进行理解记忆。就比如说数据结构这门课程一切的起点，都从链表开始， 我们由这样一个问题出发：链表的设计是用来解决什么问题的？也许部分学生的脑中就会蹦出“解决数据插入删除慢，占据空间存储量”类似的答案，但是这并不是问题的本质。链表的设计其实传达了这样一种思想，我们可以通过指针域的设计，解决数据存储空间动态分配的问题。相比于列表或数组来说，链表在空间分配上更加灵活，最重要的是通过链表的变化，我们可以延伸出其他的数据结构，例如在单向链表后驱指针域的基础上设计prev指针就成了双向链表。将链表的尾部封上，就成了栈，存取数据的方式变成了先进后出，将链表的头部堵上，就变成了队列，数据先进先出，如果我们将双向链表的前后指针域，稍微做一点点变化，将它们旋转45度，将前驱节点和后继节点分别变为自己的左右孩子，就成了一棵二叉树，那么如果对于这棵树中的根节点，我们不再机械的设定指针的方向由父指向子，而是允许子节点的指针指向父的话，那就变成了一张图。实际上，树是图的特例。所以链表其实只是一个引子，他的设计为了告诉我们利用指针域串联节点的思想，将指针的数量和方向灵活的变化，应对不同的数据存储场景，我们可以创建出不同的数据结构，无形之间我们就将整个数据结构课程串联成了条理明晰的一条逻辑线。如果顺着这条线按图索骥的话，其实会发现那些抽象的概念自然而然就脱口而出了。<br><br><br>我不清楚有没有人思考过数据结构的本质究竟是什么，但我敢肯定，如果以这样一个宏观的视角，在建构主义的基础上，帮助学生建立这样一个逻辑连贯，前后互通的思维殿堂，无疑会更有助于他们理解这种抽象的知识点，因为人对于有逻辑条理性的事物往往记忆的更加清晰。<br><br><br>也许，如何在自己以及学生脑海中这样的一座思维殿堂是我们教师毕生需要研究的课题，而在建立思维殿堂的过程中，我们更需要的其实是站在学生的角度去思考问题，去理解他们所处的困境，我们教师应该成为“多情”而"明理"的人，工作过程中富有“真情”、“热情”、“温情”，能以情动人，以理服人的教师，才能很好地承担起学生情感与理性教育的重任，教师的同理心是教育过程中不可或缺的法宝之一。我们不过是一群小小的萤火虫，用一点微弱的萤光激发学生的求知欲、启迪学生的智慧、成就学生的远大志向，我们在课堂中传授的不仅仅是代码和编程知识，更多的是解决问题的能力与创新的意识。解决问题的能力是在挫折当中不断奋进的力量源泉，创新的意识是引领未来发展的动力。我想这两者才是当今的“大学之道”所在，行得其道功自成，在践行编程教学的路上，我会永远饱含对教育的期待，对大学之道的探索，以及对人生目标的追求。教师是人类灵魂的工程师。优秀教师会憧憬未来社会的绚丽美好，努力塑造美好心灵，对眼前的每个学生“工笔细描”， 与他们一起绘出美好的未来。<br><br><br>不知不觉，即将进入教学生涯第3个年头，为了心中小小的目标，我愿和我的学生一起努力。毕竟，为了未来奋斗的滋味真的很好呢。</div><div><br></div></div>
+                                                
+                                            
+			</article>
+			<div id="comments_html">
+				<h5 class="mt-3">评论
+					<span class="badge badge-primary badge-pill">2</span>
+					<span class="text-primary p-1 float-right fa fa-thumbs-up mr-2 cursor" title="点赞数" data-field="blogid" data-target="1669559113">0</span>
+					<span class="text-primary p-1 float-right fa fa-eye mr-2 cursor" title="访问数" data-field="blogid" data-target="1669559113">0</span>
+				</h5>
+				
+				
+				
+					
+						
+						<hr>
+						<div class="comments mt-2">
+							<div class="comment">
+								<div class="d-flex justify-content-start ">
+									<div class="comment-avatar">
+										<a class="avatar p-0 m-0" target="_blank" href="https://user.qzone.qq.com/2380663637">
+											<img class="lazyload loading w-100 h-100 border rounded-circle" src="../Common/images/2380663637" >
+										</a>
+									</div>
+									<div class="comment-infos ml-2">
+										<a target="_blank" href="https://user.qzone.qq.com/2380663637">
+											<span>李尤兵数信1802 </span>
+										</a>
+										
+										<span class="border-warning border rounded text-warning small p-1" title="当前楼层">#1</span>
+										<div class="text-muted small">2022-11-27 22:57:32</div>
+									</div>
+								</div>
+								<div class="comment-text">
+									<div class="messageText">
+										<p>葛老师，这一桶水装的满满的 </p>
+										
+									</div>
+									
+									
+								</div>
+							</div>
+						</div>
+					
+						
+						<hr>
+						<div class="comments mt-2">
+							<div class="comment">
+								<div class="d-flex justify-content-start ">
+									<div class="comment-avatar">
+										<a class="avatar p-0 m-0" target="_blank" href="https://user.qzone.qq.com/2729078522">
+											<img class="lazyload loading w-100 h-100 border rounded-circle" src="../Common/images/2729078522" >
+										</a>
+									</div>
+									<div class="comment-infos ml-2">
+										<a target="_blank" href="https://user.qzone.qq.com/2729078522">
+											<span>许森行教科2022 </span>
+										</a>
+										
+										<span class="border-warning border rounded text-warning small p-1" title="当前楼层">#2</span>
+										<div class="text-muted small">2022-11-28 11:06:28</div>
+									</div>
+								</div>
+								<div class="comment-text">
+									<div class="messageText">
+										<p>有思想，敢质疑，此乃真教师、真学者。 </p>
+										
+									</div>
+									
+									
+								</div>
+							</div>
+						</div>
+					
+				
+			</div>
+		</div>
+	</main>
+	<script>
+		$(function() {
+			// 日志中的图片
+			$('#blog_content .QZBLOG_IMG_LOADING').on('click', function() {
+				// 画廊相册DOM
+				const $galleryDom = $('#blog_content').get(0);
+				// 点击的图片的索引位置
+				const imgIdx = $(this).attr('data-idx');
+
+				if ($galleryDom.galleryIns) {
+					$galleryDom.galleryIns.openGallery(imgIdx * 1);
+					return;
+				}
+
+				// 实例化画廊相册
+				const galleryIns = lightGallery($galleryDom, {
+					plugins: [
+						lgZoom,
+						lgFullscreen,
+						lgThumbnail,
+						lgRotate
+					],
+					mode: 'lg-fade',
+					selector: '.lightgallery',
+					download: false,
+					thumbnail: true,
+					loop: false
+				});
+				$galleryDom.galleryIns = galleryIns;
+
+				// 打开画廊
+				galleryIns.openGallery(imgIdx * 1);
+			})
+		});
+	</script>
+</body>
+
+</html>
