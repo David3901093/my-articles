@@ -58,6 +58,18 @@ def cmd_merge():
     new_ids = set(b.get('blogId') for b in new_data)
     manual_to_add = [b for b in manual if b.get('blogId') not in new_ids]
 
+    # 校对文章：用备份中的校对版本覆盖新数据中的原始版本
+    proofread = {b.get('blogId'): b for b in old_data if b.get('custom_proofread')}
+    proofread_count = 0
+    for i, b in enumerate(new_data):
+        bid = b.get('blogId')
+        if bid in proofread:
+            new_data[i] = proofread[bid]
+            proofread_count += 1
+
+    if proofread_count > 0:
+        print(f'恢复校对修正: {proofread_count} 篇')
+
     # 手动文章插入最前面
     merged = manual_to_add + new_data
 
