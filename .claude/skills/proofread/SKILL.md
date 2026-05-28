@@ -160,6 +160,13 @@ data = json.loads(content[len('window.blogs = '):])
 2. Base64 重新编码
 3. 写回 `blogs.js`
 4. 如果修改了摘要（abstract），同步更新
+5. **标记校对文章**：为所有本次校对过的文章添加 `"custom_proofread": true` 字段，以便重新采集时通过 `merge.py` 保留校对修正。标记代码示例：
+
+```python
+for b in data:
+    if 本次校对过此文章:
+        b['custom_proofread'] = True
+```
 
 ### 步骤6：提交
 

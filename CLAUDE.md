@@ -131,6 +131,7 @@ git push
 - **日期修改**：直接修改对应博客对象的 `pubTime` 字段即可
 - **Python 环境**：Windows 下用 `py` 命令执行脚本，脚本头部加 `# -*- coding: utf-8 -*-`
 - **手动文章标记**：非QQ空间采集的文章（由AI代写等）必须添加 `"custom_source": "manual"` 字段，以便采集时识别和保护
+- **校对文章标记**：校对过的文章必须添加 `"custom_proofread": true` 字段，以便重新采集时通过 merge.py 保留校对修正
 
 ## QQ空间重新采集流程
 
