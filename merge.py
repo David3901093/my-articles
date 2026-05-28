@@ -70,18 +70,34 @@ def cmd_merge():
     if proofread_count > 0:
         print(f'恢复校对修正: {proofread_count} 篇')
 
-    # 手动文章插入最前面
-    merged = manual_to_add + new_data
+    # 合并所有文章，按日期降序排列（最新在前）
+    all_articles = manual_to_add + new_data
 
-    write_blogs(BLOGS_FILE, merged)
+    def parse_pubtime(b):
+        """从 pubTime 字段提取可排序的日期值"""
+        pt = b.get('pubTime', '')
+        if isinstance(pt, (int, float)):
+            return pt
+        if isinstance(pt, str) and pt:
+            # 格式如 "2026-05-22 20:00"，取前10字符做日期比较
+            try:
+                from datetime import datetime
+                return datetime.strptime(pt[:16], '%Y-%m-%d %H:%M')
+            except ValueError:
+                return 0
+        return 0
+
+    all_articles.sort(key=parse_pubtime, reverse=True)
+
+    write_blogs(BLOGS_FILE, all_articles)
 
     print(f'采集数据: {len(new_data)} 篇')
     print(f'手动文章: {len(manual_to_add)} 篇')
-    print(f'合并后: {len(merged)} 篇')
+    print(f'合并后: {len(all_articles)} 篇（已按日期降序排列）')
     for b in manual_to_add:
         print(f'  + {b.get("custom_title", "")}')
     print(f'\n已写回 {BLOGS_FILE}')
-    print(f'请更新 index.html 中的日志计数为 {len(merged)}')
+    print(f'请更新 index.html 中的日志计数为 {len(all_articles)}')
 
 def cmd_status():
     """查看当前状态"""
