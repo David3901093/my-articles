@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(commit-commands:commit-push-pr)",
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(python:*)",
+      "Bash(where python3:*)",
+      "Bash(where python:*)",
+      "Bash(where py:*)",
+      "Bash(py:*)",
+      "Bash(rm:*)",
+      "WebSearch",
+      "Bash(ls -la C:/Users/david/AppData/Local/Temp/claude/D--qq-zone/cba50da4-0058-4e12-bba4-4ebb5bb337e0/tasks/*.output)",
+      "Bash(find . -name '*.mp4' -not -path './.git/*' -exec du -ch {} +)"
+    ]
+  }
+}
