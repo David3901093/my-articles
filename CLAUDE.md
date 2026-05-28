@@ -130,3 +130,19 @@ git push
 - **作者字段**：如果作者不是空间主人，添加 `custom_author` 字段；如果与空间主人相同则不需要
 - **日期修改**：直接修改对应博客对象的 `pubTime` 字段即可
 - **Python 环境**：Windows 下用 `py` 命令执行脚本，脚本头部加 `# -*- coding: utf-8 -*-`
+- **手动文章标记**：非QQ空间采集的文章（由AI代写等）必须添加 `"custom_source": "manual"` 字段，以便采集时识别和保护
+
+## QQ空间重新采集流程
+
+手动添加的文章不在QQ空间上，全量采集会覆盖丢失。按以下步骤操作：
+
+```
+1. py merge.py backup    ← 采集前，备份当前数据（含手动文章）
+2. 打开QQ空间导出助手采集  ← 新数据会覆盖 blogs.js
+3. py merge.py merge     ← 采集后，从备份提取手动文章合并回新数据
+4. 更新 index.html 中的日志计数
+```
+
+- `py merge.py status` — 随时查看当前手动文章数量和备份状态
+- 备份文件保存在 `Blogs/json/blogs_manual_backup.js`，不要手动删除
+- 合并脚本位于项目根目录 `merge.py`
