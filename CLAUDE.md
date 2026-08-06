@@ -195,11 +195,12 @@ with open('Blogs/json/blogs_meta.js', 'w', encoding='utf-8') as f:
 手动文章不在QQ空间上，全量采集会覆盖丢失：
 
 ```
-1. py merge.py backup    ← 采集前备份（含手动文章）
+1. py merge.py backup    ← 采集前备份（blogs.js + 拆分文件）
 2. 打开QQ空间导出助手采集  ← 新数据会覆盖 blogs.js
 3. py merge.py merge     ← 从备份合并回手动文章 + 重新生成拆分文件
 4. 更新 index.html 中的日志计数
 ```
 
 - `py merge.py status` — 查看当前手动文章数量和备份状态
+- `py merge.py restore` — 万一 merge 出问题，直接恢复拆分文件（不出问题时不需要）
 - 备份文件：`Blogs/json/blogs_manual_backup.js`，不要手动删除

@@ -59,17 +59,32 @@ def regenerate_split_files(data):
     print(f'  生成 {CONTENT_DIR}/: {len(data)} 个内容文件')
 
 def cmd_backup():
-    """采集前：备份当前 blogs.js"""
+    """采集前：备份 blogs.js + blogs_meta.js + blogs/ 目录"""
     if not os.path.exists(BLOGS_FILE):
         print(f'错误: {BLOGS_FILE} 不存在')
         return
+
+    # 备份完整数据（采集兼容 + merge 数据源）
     shutil.copy2(BLOGS_FILE, BACKUP_FILE)
+
+    # 备份元数据和内容文件（秒恢复用）
+    meta_backup = 'Blogs/json/blogs_meta_backup.js'
+    content_backup = 'Blogs/json/blogs_backup'
+    if os.path.exists(META_FILE):
+        shutil.copy2(META_FILE, meta_backup)
+    if os.path.exists(CONTENT_DIR):
+        if os.path.exists(content_backup):
+            shutil.rmtree(content_backup)
+        shutil.copytree(CONTENT_DIR, content_backup)
 
     data = read_blogs(BLOGS_FILE)
     manual = [b for b in data if b.get('custom_source') == 'manual']
-    print(f'已备份到 {BACKUP_FILE}')
-    print(f'  总文章: {len(data)} 篇')
-    print(f'  手动文章: {len(manual)} 篇')
+    content_count = len([f for f in os.listdir(CONTENT_DIR)]) if os.path.exists(CONTENT_DIR) else 0
+    print(f'已备份到:')
+    print(f'  {BACKUP_FILE}')
+    print(f'  {meta_backup}')
+    print(f'  {content_backup}/ ({content_count} 个内容文件)')
+    print(f'  总文章: {len(data)} 篇 | 手动文章: {len(manual)} 篇')
     for b in manual:
         print(f'    - {b.get("custom_title", "")}')
 
@@ -154,11 +169,33 @@ def cmd_status():
         for b in manual:
             print(f'  - {b.get("custom_title", "")}')
 
+def cmd_restore():
+    """从备份恢复拆分文件（blogs_meta.js + blogs/ 目录）"""
+    meta_backup = 'Blogs/json/blogs_meta_backup.js'
+    content_backup = 'Blogs/json/blogs_backup'
+
+    if not os.path.exists(meta_backup):
+        print(f'错误: 备份 {meta_backup} 不存在，请先运行 py merge.py backup')
+        return
+
+    shutil.copy2(meta_backup, META_FILE)
+    print(f'  恢复 {META_FILE}')
+
+    if os.path.exists(content_backup):
+        if os.path.exists(CONTENT_DIR):
+            shutil.rmtree(CONTENT_DIR)
+        shutil.copytree(content_backup, CONTENT_DIR)
+        count = len([f for f in os.listdir(CONTENT_DIR)])
+        print(f'  恢复 {CONTENT_DIR}/ ({count} 个内容文件)')
+
+    print('恢复完成')
+
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         print('用法:')
-        print('  py merge.py backup   - 采集前备份')
+        print('  py merge.py backup   - 采集前备份（blogs.js + 拆分文件）')
         print('  py merge.py merge    - 采集后合并 + 重新生成拆分文件')
+        print('  py merge.py restore  - 从备份恢复拆分文件（不出问题时不需要）')
         print('  py merge.py status   - 查看状态')
         sys.exit(0)
 
