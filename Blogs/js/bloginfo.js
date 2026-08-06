@@ -1,65 +1,61 @@
 $(function() {
     let blogId = API.Utils.getUrlParam('blogId');
 
-    // 获取指定ID的日志
+    // Get metadata from blogs_meta.js
     const blogIndex = blogs.getIndex(blogId * 1, 'blogid');
-    const blog = blogs[blogIndex];
+    const meta = blogs[blogIndex];
 
-    // 渲染日志标题
-    document.title = 'QQ空间备份-' + blog.custom_title;
-    $("#blog_title").text(blog.custom_title);
-    $("#blog_time").text(API.Utils.formatDate(blog.lastModifyTime ||  blog.pubtime));
-    if (blog.custom_author) {
-        $("#blog_author").text("作者：" + blog.custom_author).show();
+    // Render title/time/author from metadata (instant, no waiting)
+    document.title = 'QQ空间备份-' + (meta.custom_title || meta.title);
+    $("#blog_title").text(meta.custom_title || meta.title);
+    $("#blog_time").text(API.Utils.formatDate(meta.lastModifyTime || meta.pubtime));
+    if (meta.custom_author) {
+        $("#blog_author").text("作者：" + meta.custom_author).show();
     }
 
-    const $blogHtml = $('<div><div>').html(API.Utils.base64ToUtf8(blog.custom_html));
-    $('#blog_content').html($blogHtml.html());
+    // Lazy-load full blog content
+    const script = document.createElement('script');
+    script.src = 'json/blogs/blog_' + blogId + '.js';
+    script.onload = function() {
+        const blog = window.blogDetail;
 
-    // 获取模板元素
-    const comments_tpl = document.getElementById('comments_tpl').innerHTML;
-    // 生成模板
-    const comments_html = template(comments_tpl, { blog: blog });
-    // 渲染模板到页面
-    $("#comments_html").html(comments_html);
+        // Render content
+        const $blogHtml = $('<div><div>').html(API.Utils.base64ToUtf8(blog.custom_html));
+        $('#blog_content').html($blogHtml.html());
 
-    // 日志中的图片
-    $('#blog_content img').on('click', function() {
-        // 画廊相册DOM
-        const $galleryDom = $('#blog_content').get(0);
-        // 点击的图片的索引位置
-        const imgIdx = $(this).attr('data-idx');
+        // Render comments
+        const comments_tpl = document.getElementById('comments_tpl').innerHTML;
+        const comments_html = template(comments_tpl, { blog: blog });
+        $("#comments_html").html(comments_html);
 
-        if ($galleryDom.galleryIns) {
-            $galleryDom.galleryIns.openGallery(imgIdx * 1);
-            return;
-        }
+        // Image gallery
+        $('#blog_content img').on('click', function() {
+            const $galleryDom = $('#blog_content').get(0);
+            const imgIdx = $(this).attr('data-idx');
 
-        // 实例化画廊相册
-        const galleryIns = lightGallery($galleryDom, {
-            plugins: [
-                lgZoom,
-                lgFullscreen,
-                lgThumbnail,
-                lgRotate
-            ],
-            mode: 'lg-fade',
-            selector: '.lightgallery',
-            download: false,
-            thumbnail: true,
-            loop: false
+            if ($galleryDom.galleryIns) {
+                $galleryDom.galleryIns.openGallery(imgIdx * 1);
+                return;
+            }
+
+            const galleryIns = lightGallery($galleryDom, {
+                plugins: [lgZoom, lgFullscreen, lgThumbnail, lgRotate],
+                mode: 'lg-fade',
+                selector: '.lightgallery',
+                download: false,
+                thumbnail: true,
+                loop: false
+            });
+            $galleryDom.galleryIns = galleryIns;
+            galleryIns.openGallery(imgIdx * 1);
         });
-        $galleryDom.galleryIns = galleryIns;
 
-        // 打开画廊
-        galleryIns.openGallery(imgIdx * 1);
-    })
-
-    // 点赞列表
-    API.Common.registerShowVisitorsWin(blogs);
-
-    // 最近访问
-    API.Common.registerShowLikeWin(blogs);
-
-
+        // Like & visitors (use full blog data)
+        API.Common.registerShowVisitorsWin([blog]);
+        API.Common.registerShowLikeWin([blog]);
+    };
+    script.onerror = function() {
+        $('#blog_content').html('<div class="alert alert-warning">文章内容加载失败</div>');
+    };
+    document.head.appendChild(script);
 });

@@ -3,21 +3,23 @@
 ## 项目结构
 
 - `index.html` — 首页入口，包含各模块统计数字
-- `Blogs/index.html` — 日志列表页（JS 动态渲染）
-- `Blogs/info.html` — 日志详情页（`?blogId=xxx` 动态加载）
-- `Blogs/json/blogs.js` — 所有日志数据（JSON，变量 `window.blogs`）
+- `Blogs/index.html` — 日志列表页（JS 动态渲染，加载 `blogs_meta.js`）
+- `Blogs/info.html` — 日志详情页（`?blogId=xxx` 按需加载 `blogs/blog_{blogId}.js`）
+- `Blogs/json/blogs.js` — 完整数据文件（保留用于采集兼容，不直接加载）
+- `Blogs/json/blogs_meta.js` — 列表页元数据（轻量，~265KB）
+- `Blogs/json/blogs/` — 每篇文章独立内容文件 `blog_{blogId}.js`
 - `Blogs/js/blogs.js` — 列表页渲染逻辑
-- `Blogs/js/bloginfo.js` — 详情页渲染逻辑
+- `Blogs/js/bloginfo.js` — 详情页渲染逻辑（按需加载）
 - `merge.py` — 重新采集时的手动文章合并脚本
 
 ## 新增博客文章流程
 
-用 Python 脚本操作 `Blogs/json/blogs.js`，脚本头部加 `# -*- coding: utf-8 -*-` 和 `sys.stdout.reconfigure(encoding='utf-8')`。
+用 Python 脚本操作数据，脚本头部加 `# -*- coding: utf-8 -*-` 和 `sys.stdout.reconfigure(encoding='utf-8')`。
 
 ### 1. 准备文章数据
 
 ```python
-import base64, json, time, sys
+import base64, json, time, sys, os
 sys.stdout.reconfigure(encoding='utf-8')
 
 title = "文章标题"
@@ -61,23 +63,41 @@ new_blog = {
 }
 ```
 
-### 3. 写入数据文件
+### 3. 写入三个文件（blogs.js + blogs_meta.js + blogs/blog_xxx.js）
 
 ```python
+META_FIELDS = [
+    'blogId', 'blogType', 'pubTime', 'lastModifyTime',
+    'cate', 'cateHex', 'title', 'custom_title',
+    'commentNum', 'replynum', 'category',
+    'abstract', 'artype', 'blogid',
+    'custom_author', 'custom_source',
+    'custom_visitor', 'likeTotal', 'effect',
+]
+
+# 3a. 写入完整 blogs.js（保留用于采集兼容）
 with open('Blogs/json/blogs.js', 'r', encoding='utf-8') as f:
     data = json.loads(f.read()[len('window.blogs = '):])
-
 data.insert(0, new_blog)
-
 with open('Blogs/json/blogs.js', 'w', encoding='utf-8') as f:
     f.write('window.blogs = ' + json.dumps(data, ensure_ascii=False, separators=(',', ':')))
+
+# 3b. 写入元数据 blogs_meta.js
+meta = [{f: b[f] for f in META_FIELDS if f in b and b[f] is not None} for b in data]
+with open('Blogs/json/blogs_meta.js', 'w', encoding='utf-8') as f:
+    f.write('window.blogs = ' + json.dumps(meta, ensure_ascii=False, separators=(',', ':')))
+
+# 3c. 写入单篇内容文件
+os.makedirs('Blogs/json/blogs', exist_ok=True)
+with open(f'Blogs/json/blogs/blog_{blogId}.js', 'w', encoding='utf-8') as f:
+    f.write('window.blogDetail = ' + json.dumps(new_blog, ensure_ascii=False, separators=(',', ':')))
 ```
 
 ### 4. 更新首页统计、提交推送
 
 ```bash
 # 编辑 index.html 中日志 badge 数字 +1
-git add Blogs/json/blogs.js index.html
+git add Blogs/json/blogs.js Blogs/json/blogs_meta.js Blogs/json/blogs/ index.html
 git commit -m "Add blog: YYYY-MM-DD update blog count to NNN"
 git push
 ```
@@ -85,9 +105,21 @@ git push
 ## 修改已有文章
 
 ```python
-# 读取
+import base64, json, sys
+sys.stdout.reconfigure(encoding='utf-8')
+
+# 读取完整数据
 with open('Blogs/json/blogs.js', 'r', encoding='utf-8') as f:
     data = json.loads(f.read()[len('window.blogs = '):])
+
+META_FIELDS = [
+    'blogId', 'blogType', 'pubTime', 'lastModifyTime',
+    'cate', 'cateHex', 'title', 'custom_title',
+    'commentNum', 'replynum', 'category',
+    'abstract', 'artype', 'blogid',
+    'custom_author', 'custom_source',
+    'custom_visitor', 'likeTotal', 'effect',
+]
 
 for b in data:
     if '标题关键词' in b.get('title', ''):
@@ -96,23 +128,33 @@ for b in data:
         b['custom_html'] = base64.b64encode(html.encode('utf-8')).decode('utf-8')
         b['html'] = b['custom_html']
         b['custom_proofread'] = True
+
+        # 同步更新单篇内容文件
+        blog_id = b.get('blogid', b.get('blogId'))
+        with open(f'Blogs/json/blogs/blog_{blog_id}.js', 'w', encoding='utf-8') as f:
+            f.write('window.blogDetail = ' + json.dumps(b, ensure_ascii=False, separators=(',', ':')))
         break
 
+# 同步更新 blogs.js 和 blogs_meta.js
 with open('Blogs/json/blogs.js', 'w', encoding='utf-8') as f:
     f.write('window.blogs = ' + json.dumps(data, ensure_ascii=False, separators=(',', ':')))
+meta = [{f: b[f] for f in META_FIELDS if f in b and b[f] is not None} for b in data]
+with open('Blogs/json/blogs_meta.js', 'w', encoding='utf-8') as f:
+    f.write('window.blogs = ' + json.dumps(meta, ensure_ascii=False, separators=(',', ':')))
 ```
 
 ## 关键注意事项
 
 - **分类默认「个人日记」**：除非用户明确指定
 - **段落数与原文一致**：每个自然段对应一个 `<div>`
-- **不创建单独 HTML 文件**：内容全部在 `blogs.js` 中
+- **不创建单独 HTML 文件**：内容全部在 JS 文件中
 - **作者字段**：非空间主人时添加 `custom_author`
 - **手动文章标记**：AI代写等必须加 `"custom_source": "manual"`
 - **校对文章标记**：校对过的文章加 `"custom_proofread": true`
 - **Python 环境**：Windows 用 `py` 命令，禁止 bash 内联 `-c`（中文转义问题）
 - **commit message 用英文**：Windows bash 下中文会转义失败
 - **修改后同时更新 `custom_html` 和 `html` 字段**
+- **写入三文件**：每次新增/修改必须同步更新 `blogs.js`、`blogs_meta.js`、`blogs/blog_{id}.js`
 
 ## 校对规则
 
@@ -155,7 +197,7 @@ with open('Blogs/json/blogs.js', 'w', encoding='utf-8') as f:
 ```
 1. py merge.py backup    ← 采集前备份（含手动文章）
 2. 打开QQ空间导出助手采集  ← 新数据会覆盖 blogs.js
-3. py merge.py merge     ← 从备份合并回手动文章
+3. py merge.py merge     ← 从备份合并回手动文章 + 重新生成拆分文件
 4. 更新 index.html 中的日志计数
 ```
 
