@@ -156,6 +156,29 @@ with open('Blogs/json/blogs_meta.js', 'w', encoding='utf-8') as f:
 - **修改后同时更新 `custom_html` 和 `html` 字段**
 - **写入三文件**：每次新增/修改必须同步更新 `blogs.js`、`blogs_meta.js`、`blogs/blog_{id}.js`
 
+## 数据采集覆盖自动检测
+
+用户通过 QQ空间导出助手采集会覆盖 `Blogs/json/blogs.js`，但不会更新拆分文件。**每次会话开始操作博客数据时，自动执行以下检测，无需询问用户：**
+
+```python
+# 自动检测：blogs.js 是否被采集覆盖但拆分文件未同步
+import json, os, sys
+sys.stdout.reconfigure(encoding='utf-8')
+with open('Blogs/json/blogs.js', 'r', encoding='utf-8') as f:
+    js_ids = set(b.get('blogId', b.get('blogid')) for b in json.loads(f.read()[len('window.blogs = '):]))
+content_dir = 'Blogs/json/blogs'
+existing_ids = set(int(f.replace('blog_', '').replace('.js', '')) for f in os.listdir(content_dir) if f.startswith('blog_')) if os.path.exists(content_dir) else set()
+if js_ids != existing_ids:
+    print('检测到 blogs.js 与拆分文件不同步（可能被采集覆盖）')
+    print('请执行: py merge.py backup && (采集) && py merge.py merge')
+```
+
+**检测到不同步时的处理流程（自动执行，不询问用户）：**
+1. 如果 `blogs_manual_backup.js` 不存在，先运行 `py merge.py backup` 创建备份
+2. 运行 `py merge.py merge` 合并手动文章并重新生成拆分文件
+3. 更新 `index.html` 中的日志计数
+4. 提交推送
+
 ## 校对规则
 
 ### 校对五层次
