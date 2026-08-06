@@ -9,6 +9,9 @@ $(function() {
     document.title = 'QQ空间备份-' + blog.custom_title;
     $("#blog_title").text(blog.custom_title);
     $("#blog_time").text(API.Utils.formatDate(blog.lastModifyTime ||  blog.pubtime));
+    if (blog.custom_author) {
+        $("#blog_author").text("作者：" + blog.custom_author).show();
+    }
 
     const $blogHtml = $('<div><div>').html(API.Utils.base64ToUtf8(blog.custom_html));
     $('#blog_content').html($blogHtml.html());
