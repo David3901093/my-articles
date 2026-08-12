@@ -1,0 +1,6 @@
+# Local Netlify folder
+.netlify
+
+# Backups & recovery artifacts
+_pre_recollect_backup/
+*.bak

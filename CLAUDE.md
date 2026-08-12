@@ -93,14 +93,18 @@ with open(f'Blogs/json/blogs/blog_{blogId}.js', 'w', encoding='utf-8') as f:
     f.write('window.blogDetail = ' + json.dumps(new_blog, ensure_ascii=False, separators=(',', ':')))
 ```
 
-### 4. 更新首页统计、提交推送
+### 4. 更新首页统计、提交推送、部署上线
 
 ```bash
 # 编辑 index.html 中日志 badge 数字 +1
 git add Blogs/json/blogs.js Blogs/json/blogs_meta.js Blogs/json/blogs/ index.html
 git commit -m "Add blog: YYYY-MM-DD update blog count to NNN"
 git push
+netlify deploy --prod --dir=.
 ```
+
+- Git push 到 GitHub 保留（备份），Netlify 部署通过本地 CLI 直接上传，不再依赖 GitHub 自动触发
+- 站点已关联：`david-ge-and-bros-hut`（ID: `6eef1aab-7bb3-49ed-9223-6885fdf4e601`）
 
 ## 修改已有文章
 
@@ -223,7 +227,7 @@ if js_ids != existing_ids:
 2. **输出完整句子及上下文**，让用户阅读原文感受语感
 3. 分析问题，给出诊断
 4. **输出修改后的完整句子及上下文**，让用户再次阅读确认
-5. 确认后执行修改，自动 commit → push
+5. 确认后执行修改，自动 commit → push → `netlify deploy --prod --dir=.`
 
 ## QQ空间重新采集流程
 
