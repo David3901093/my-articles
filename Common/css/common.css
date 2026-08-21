@@ -1556,3 +1556,154 @@ blockquote.source {
 .tooltip-inner {
     max-width: 600px !important;
 }
+
+
+/* ===== 日志正文排版（存档长文：标题 / 引用 / 表格 / 代码，仅作用于日志内容区，不影响旧日志的纯段落版式） ===== */
+
+#blog_content {
+    font-size: 1.02rem;
+}
+
+#blog_content p {
+    line-height: 1.9;
+    margin: 0 0 1em;
+}
+
+/* 标题层级：H1 系列名居中，H2 章题蓝色标线，H3/H4 逐级收敛 */
+
+#blog_content h1 {
+    font-size: 1.45rem;
+    font-weight: bold;
+    text-align: center;
+    color: #343a40;
+    margin: 1.1em 0 0.7em;
+}
+
+#blog_content h2 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #087cd2;
+    background-color: #eef4fb;
+    border-left: 5px solid #087cd2;
+    border-radius: 0 8px 8px 0;
+    padding: 0.35em 0.7em;
+    margin: 1.9em 0 1em;
+}
+
+#blog_content h3 {
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: #343a40;
+    border-left: 3px solid #4d9cf8;
+    padding-left: 0.55em;
+    margin: 1.6em 0 0.8em;
+}
+
+#blog_content h4 {
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #495057;
+    border-bottom: 1px dashed #ced4da;
+    padding-bottom: 0.2em;
+    margin: 1.4em 0 0.7em;
+}
+
+/* 引用块：蓝色左标 + 浅蓝底 + 圆角，呼应主题蓝 */
+
+#blog_content blockquote {
+    border-left: 4px solid #087cd2;
+    background-color: #f1f6fb;
+    border-radius: 0 8px 8px 0;
+    padding: 0.75em 1.1em;
+    margin: 1.2em 0;
+    color: #495057;
+}
+
+#blog_content blockquote p {
+    margin-bottom: 0.5em;
+}
+
+#blog_content blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* 表格：带边框、表头蓝底、隔行浅灰，窄屏横向滚动 */
+
+#blog_content table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    margin: 1.2em 0;
+}
+
+#blog_content table th,
+#blog_content table td {
+    border: 1px solid #dee2e6;
+    padding: 0.5em 0.75em;
+    text-align: left;
+    vertical-align: top;
+}
+
+#blog_content table thead th {
+    background-color: #eef4fb;
+    color: #343a40;
+    border-bottom: 2px solid #087cd2;
+    white-space: nowrap;
+}
+
+#blog_content table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* 行内代码与代码块 */
+
+#blog_content code {
+    background-color: #f1f3f5;
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+    font-size: 90%;
+}
+
+#blog_content pre {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 0.9em 1em;
+    overflow-x: auto;
+    margin: 1.2em 0;
+}
+
+#blog_content pre code {
+    background-color: transparent;
+    padding: 0;
+    font-size: 100%;
+}
+
+/* 列表与分隔线 */
+
+#blog_content ul,
+#blog_content ol {
+    padding-left: 1.6em;
+    margin: 0 0 1em;
+}
+
+#blog_content li {
+    line-height: 1.8;
+    margin: 0.25em 0;
+}
+
+#blog_content hr {
+    border: 0;
+    border-top: 1px dashed #ced4da;
+    width: 70%;
+    margin: 2em auto;
+}
+
+/* 正文配图居中展示 */
+
+#blog_content p>img {
+    display: block;
+    margin: 1.4em auto;
+}
