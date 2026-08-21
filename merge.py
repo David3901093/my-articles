@@ -150,7 +150,25 @@ def cmd_merge():
     # 重新生成拆分文件
     regenerate_split_files(all_articles)
     print(f'\n已写回 {BLOGS_FILE}')
-    print(f'请更新 index.html 中的日志计数为 {len(all_articles)}')
+    fix_badge_count(len(all_articles))
+
+
+def fix_badge_count(count):
+    """按合并后的篇数自动更新 index.html 日志计数（幂等）"""
+    try:
+        import re
+        with open('index.html', 'r', encoding='utf-8') as f:
+            s = f.read()
+        s2 = re.sub(r'(\u65e5\u5fd7<span class="badge badge-primary badge-pill">)\d+(</span>)',
+                    lambda m: m.group(1) + str(count) + m.group(2), s)
+        if s2 != s:
+            with open('index.html', 'w', encoding='utf-8') as f:
+                f.write(s2)
+            print(f'已更新 index.html 日志计数为 {count}')
+        else:
+            print(f'index.html 日志计数已正确（{count}）')
+    except Exception as e:
+        print(f'更新计数失败: {e}，请手动把 index.html 日志计数改为 {count}')
 
 def cmd_status():
     """查看当前状态"""

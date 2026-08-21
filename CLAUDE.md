@@ -234,12 +234,26 @@ if js_ids != existing_ids:
 手动文章不在QQ空间上，全量采集会覆盖丢失：
 
 ```
-1. py merge.py backup    ← 采集前备份（blogs.js + 拆分文件）
+1. py merge.py backup     ← 采集前备份（blogs.js + 拆分文件）【必做，否则 merge 无可合】
 2. 打开QQ空间导出助手采集  ← 新数据会覆盖 blogs.js
-3. py merge.py merge     ← 从备份合并回手动文章 + 重新生成拆分文件
-4. 更新 index.html 中的日志计数
+3. py merge.py merge      ← 从备份合并回手动文章 + 重新生成拆分文件 + 自动更新 index.html 日志计数
+4. py custom_restore.py   ← 恢复自定义资产（见下节）
+5. netlify deploy --prod --dir=.
 ```
 
 - `py merge.py status` — 查看当前手动文章数量和备份状态
 - `py merge.py restore` — 万一 merge 出问题，直接恢复拆分文件（不出问题时不需要）
 - 备份文件：`Blogs/json/blogs_manual_backup.js`，不要手动删除
+
+## 自定义资产保护（2026-08-21 起）
+
+重新采集除覆盖文章数据外，还可能覆盖站点模板文件。以下自定义资产已建立保护，恢复入口统一为 `py custom_restore.py`（幂等）：
+
+| 资产 | 内容 | 保护机制 |
+|---|---|---|
+| 手动文章数据 | 16 篇「开发手记」存档（第一至十五期＋提纲笔记，custom_source=manual）＋ 7 篇既有手动文章 | merge.py backup/merge 流程 |
+| CSS 自定义样式块 | `Common/css/common.css` 末尾约 150 行存档长文排版（标题/引用/表格/终端风代码块/图片居中） | `_custom/custom-css-block.css` + custom_restore.py 字节级追回 |
+| 存档配图 | `Blogs/images/ep*-flow-*.png`（14 张，第九期 2 张源文件缺失待补，补齐时同时放 `_custom/images/`） | `_custom/images/` + custom_restore.py |
+| 首页日志计数 | index.html 徽章 | merge.py 自动更新 + custom_restore.py 校验 |
+
+终极兜底是 git（仓库已推 GitHub；代理 `git config --global http.https://github.com.proxy http://127.0.0.1:7892`）：任何文件被覆盖后 `git checkout -- <文件>` 可恢复。详见 `_custom/README.md`。
