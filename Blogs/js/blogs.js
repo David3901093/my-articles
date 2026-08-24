@@ -2,6 +2,9 @@
  * 列表方式显示日志列表
  */
  API.Blogs.showList = function() {
+    // 统一按发布时间降序，避免数据文件插入顺序影响展示
+    blogs.sort((a, b) => (b.pubTime || '').localeCompare(a.pubTime || ''));
+
     // 日志分类清单
     const categoryMaps = API.Utils.groupedByField(blogs, 'category');
 
@@ -67,7 +70,7 @@ API.Blogs.showTableList = function() {
         align: 'center',
         width: "20",
         sortable: true
-    }], blogs);
+    }], blogs.slice().sort((a, b) => (b.pubTime || '').localeCompare(a.pubTime || '')));
 }
 
 $(function() {
